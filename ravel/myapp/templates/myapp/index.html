@@ -1,0 +1,9 @@
+{% if flight_list %}
+    <ul>
+    {% for flight in flight_list %}
+        <li><a href="/myapp/{{ flight.id }}/">{{ flight.flight_name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Flights are available.</p>
+{% endif %}
