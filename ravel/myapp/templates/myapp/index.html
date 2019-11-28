@@ -1,12 +1,6 @@
 {% extends 'myapp/base.html' %}
 
-{% block content%}
-    
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.get_username }}.</p>
-    {% else %}
-        <p>Welcome, new user. Please log in.</p>
-    {% endif %}
+{% block content %}
 
     {% block flight_title %}
         Top 5 flights
