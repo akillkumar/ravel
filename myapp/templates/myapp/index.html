@@ -1,6 +1,9 @@
 {% extends 'myapp/base.html' %}
 
 {% block content%}
+{%load static%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/index.css' %}">
     
     {% if user.is_authenticated %}
         <p>Hello, {{ user.get_username }}.</p>
