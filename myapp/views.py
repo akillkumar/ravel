@@ -22,3 +22,6 @@ def index (request):
 def details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
 	return render(request, 'myapp/details.html', {'flight' : flight})
+
+def places (request):
+	return render (request, 'myapp/places.html', context={})
