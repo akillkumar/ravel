@@ -1,6 +1,9 @@
 {% extends 'myapp/base.html' %}
 
 {% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
     <h1>{{ flight.flight_name }}</h1>
     <ul>
         <li>{{ flight.flight_number }}</li>
