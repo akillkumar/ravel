@@ -1,0 +1,10 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+    <h1>{{ flight.flight_name }}</h1>
+    <ul>
+        <li>{{ flight.flight_number }}</li>
+        <li>{{ flight.origin }}</li>
+        <li>{{ flight.dest }}</li>
+    </ul>
+{% endblock %}
