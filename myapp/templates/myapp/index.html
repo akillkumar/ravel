@@ -1,0 +1,37 @@
+{% extends 'myapp/base.html' %}
+
+{% block content%}
+    
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.get_username }}.</p>
+    {% else %}
+        <p>Welcome, new user. Please log in.</p>
+    {% endif %}
+
+    {% block flight_title %}
+        Top 5 flights
+    {% endblock %}
+    {% if flight_list %}
+        <ul>
+        {% for flight in flight_list %}
+            <li><a href="/myapp/{{ flight.id }}/">{{ flight.flight_name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Flights are available.</p>
+    {% endif %}
+
+    {% block train_title %}
+        Top 5 trains
+    {% endblock %}
+
+    {% if train_list %}
+        <ul>
+        {% for train in train_list %}
+            <li><a href="">{{ train.train_name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Flights are available.</p>
+    {% endif %}
+{% endblock %}
