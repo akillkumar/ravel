@@ -10,4 +10,10 @@
         <li>{{ flight.origin }}</li>
         <li>{{ flight.dest }}</li>
     </ul>
+
+    <form method="POST" action="/myapp/booking/" class="form-group">
+        {% csrf_token %}
+        <input type="hidden" name="flight_id" value="{{ flight.pk }}">
+        <button type="submit" class="btn btn-success">Book</button>
+    </form>
 {% endblock %}

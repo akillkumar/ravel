@@ -1,23 +1,12 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.models import User
 
-from .models import Flight, Trains
+from .models import Flight, Trains, Buses, Hotel, Bookings
 
 def index (request):
-	flight_list = Flight.objects.order_by('flight_number')[:5]
-	output = ', '.join([f.flight_name for f in flight_list])
-
-	train_list = Trains.objects.order_by('train_number')[:5]
-	output = ', '.join([t.train_name for t in train_list])
-
-
-	template = loader.get_template('myapp/index.html')
-	context = {
-		'flight_list' : flight_list,
-		'train_list' : train_list, 
-	}
-	return render (request, 'myapp/index.html', context)
+	return render (request, 'myapp/index.html', {})
 
 def details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
@@ -58,3 +47,17 @@ def filter_trains (request):
 		results = Trains.objects.filter(origin__icontains = origin,dest__icontains = dest)
 
 	return render (request, 'myapp/temp1.html', {'train_list': results, 'origin':origin,'dest':dest})
+
+
+def  book_flight (request):
+	if request.method == "POST":
+		flight_id = request.POST.get('flight_id', '')
+		print ('my flight id is - ',flight_id)
+	
+	flight = get_object_or_404 (Flight, pk = flight_id)
+
+	# Add entry
+	b = Bookings (user=request.user, booking_type='Flight', key=flight.pk)
+	b.save()
+
+	return render (request, 'myapp/booking.html', {'flight': flight})

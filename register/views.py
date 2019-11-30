@@ -5,7 +5,7 @@ from .forms import RegisterForm
 
 def register (response):
 
-    if response.method == "POST":
+    if response.method == "POST": 
          login_form = RegisterForm(response.POST)
          if login_form.is_valid():
              login_form.save()

@@ -7,5 +7,6 @@ urlpatterns = [
     path('places', views.places, name='places'),
     path('<int:flight_id>/', views.details, name='details'),
     path('flights/', views.filter_flights, name="filter_flights"),
-    path('trains/', views.filter_trains, name="filter_trains")
+    path('trains/', views.filter_trains, name="filter_trains"),
+    path('booking/', views.book_flight,  name="book_flight"),
 ]
