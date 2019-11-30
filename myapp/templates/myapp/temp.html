@@ -5,9 +5,11 @@ FLIGHTS FROM {{origin}} to {{dest}}:
 
 {% for f in flight_list %}
 
-    <a href="/myapp/{{f.pk}}">{{f.flight_name}}</a> &nbsp; PRICE = {{f.price}}<br>
+    <a href="/myapp/{{f.pk}}">{{f.flight_name}}</a> &nbsp; DEPT = {{f.dept}} &nbsp; PRICE = {{f.price}}<br>
 
 {% endfor %}
+
+
 
 
 {% endblock %}
