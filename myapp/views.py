@@ -61,3 +61,7 @@ def  book_flight (request):
 	b.save()
 
 	return render (request, 'myapp/booking.html', {'flight': flight})
+
+def profile (request):
+	booking_list = Bookings.objects.filter (user=request.user)
+	return render (request, 'myapp/profile.html', {'user': request.user, 'booking_list': booking_list})

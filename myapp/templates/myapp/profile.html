@@ -1,0 +1,17 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+    {{ user.username }} | Profile
+{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome, {{ user.username }}. Your bookings: </h1>
+    
+    <ul>
+        {% for booking in booking_list %}
+            <li>{{ booking.booking_type }} - {{ booking.key }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

@@ -9,4 +9,5 @@ urlpatterns = [
     path('flights/', views.filter_flights, name="filter_flights"),
     path('trains/', views.filter_trains, name="filter_trains"),
     path('booking/', views.book_flight,  name="book_flight"),
+    path('profile/', views.profile, name="profile"),
 ]
