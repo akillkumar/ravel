@@ -6,19 +6,65 @@
 <!doctype html>
 <html>
 <head> 
+	{% load static %}
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{%static 'myapp/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/style.css' %}">
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
  
 	<title>{% block title %}Ravel{% endblock %}</title>
 </head>
  
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-warning ftco-navbar-dark" id="ftco-navbar">
+			<div class="container">
+			<a class="navbar-brand" href="index.html">Ravel</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+				<li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+				<li class="nav-item"><a href="places.html" class="nav-link">Places</a></li>
+				<li class="nav-item"><a href="hotel.html" class="nav-link">Hotels</a></li>
+				{% if user.is_authenticated %}
+				  <li class="nav-item"><a href="profile.html" class="nav-link">{{ user.username }}</a></li>
+				{% else %}
+					<li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+				{% endif %}
+				</ul>
+			</div>
+			</div>
+		</nav>
+
 	<div id="content" name="content" class="main">
 		<div class="row justify-content-center">
 			<div class="col-8">
-				<h1 class="mt-2">My Site</h1>
                 <hr class="mt-0 mb-4">
                     {% block content %}
                     {% endblock %}

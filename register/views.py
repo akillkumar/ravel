@@ -10,9 +10,7 @@ def register (response):
          if login_form.is_valid():
              login_form.save()
          
-         return redirect('/myapp')    
-         
-        
+         return redirect('/myapp')         
 
     else:
         login_form = RegisterForm()

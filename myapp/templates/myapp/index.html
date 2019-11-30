@@ -44,9 +44,11 @@
 	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="places.html" class="nav-link">Places</a></li>
 	          <li class="nav-item"><a href="hotel.html" class="nav-link">Hotels</a></li>
-			  <li class="nav-item"><a href="login" class="nav-link">Login</a></li>
-			  <li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
-
+			  	{% if user.is_authenticated %}
+				  <li class="nav-item"><a href="profile.html" class="nav-link">{{ user.username }}</a></li>
+				{% else %}
+					<li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+				{% endif %}
 	        </ul>
 	      </div>
 	    </div>

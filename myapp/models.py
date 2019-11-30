@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime, timedelta
+from django.contrib.auth.models import User
 
 # Some defaults
 def default_start_time():
@@ -85,5 +86,8 @@ class Hotel (models.Model):
 		return self.hotel_name
 	
 
-
+class Bookings (models.Model):
+	user = models.ForeignKey (User, on_delete = models.CASCADE, related_name="userboi")
+	booking_type = models.CharField (max_length=8, default="")
+	key = models.IntegerField ()
 	
