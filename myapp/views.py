@@ -35,11 +35,26 @@ def myFunc (request):
 	
 	return render (request, 'myapp/temp.html',{'origin':origin,'dest':dest})
 
-def filter (request):
+def filter_flights (request):
 	if request.method=='GET':
 		origin=request.GET.get('origin','')
 		dest = request.GET.get('dest','')
+		passengers = request.GET.get('passengers','')
 
-		results = Flight.objects.filter(origin__icontains = origin,dest__icontains = dest)
+		print('pass = ',passengers)
+
+		results = Flight.objects.filter(origin__icontains = origin,dest__icontains = dest, seats__gte = passengers)
 
 	return render (request, 'myapp/temp.html', {'flight_list': results, 'origin':origin,'dest':dest})
+
+def filter_trains (request):
+	if request.method=='GET':
+		origin=request.GET.get('origin','')
+		dest = request.GET.get('dest','')
+		x = request.GET.get('dept','')
+
+		print('departure = ',x.split('/'))
+
+		results = Trains.objects.filter(origin__icontains = origin,dest__icontains = dest)
+
+	return render (request, 'myapp/temp1.html', {'train_list': results, 'origin':origin,'dest':dest})

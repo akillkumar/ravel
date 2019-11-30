@@ -70,7 +70,8 @@
     		<div class="row no-gutters">
           <div class="col-md-12 nav-link-wrap">
             <div class="nav nav-pills justify-content-center text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Flight</a>
+							<a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Flight</a>
+							<a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="true">Train</a>
 
               <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Hotel</a>
 
@@ -84,12 +85,12 @@
               <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
 								
 								
-								<form method="GET" action="{% url 'filter' %}" class="search-destination">
+								<form method="GET" action="{% url 'filter_flights' %}" class="search-destination">
 											
               		<div class="row">
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">From</label>
+              					<label for="#">Origin</label>
 	              				<div class="form-field">
 	              					<div class="icon"><span class="icon-my_location"></span></div>
 					                <input type="text" name='origin' class="form-control" placeholder="From">
@@ -98,7 +99,7 @@
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Where</label>
+              					<label for="#">Destination</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
 					                <input type="text" name="dest" class="form-control" placeholder="Where">
@@ -107,35 +108,29 @@
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Check In</label>
+              					<label for="#">Departure</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkin_date" placeholder="Check In">
+					                <input type="text" name="dept" class="form-control checkin_date" placeholder="Departure">
 					              </div>
 				              </div>
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Check Out</label>
+              					<label for="#">Arrival</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" class="form-control checkout_date" placeholder="From">
+					                <input type="text" name="arrival" class="form-control checkout_date" placeholder="Arrival">
 					              </div>
 				              </div>
               			</div>
               			<div class="col-md align-items-end">
               				<div class="form-group">
-              					<label for="#">Travelers</label>
+              					<label for="#">No. of passengers</label>
               					<div class="form-field">
 	              					<div class="select-wrap">
 			                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-			                      <select name="" id="" class="form-control">
-			                      	<option value="">1</option>
-			                        <option value="">2</option>
-			                        <option value="">3</option>
-			                        <option value="">4</option>
-			                        <option value="">5</option>
-			                      </select>
+			                      <input class="form-control" type="number" min="1" max="10" name="passengers" value="1">
 			                    </div>
 					              </div>
 				              </div>
@@ -153,7 +148,75 @@
 
 
 
-              </div>
+							</div>
+							
+							<div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-performance-tab">
+								
+								
+									<form method="GET" action="{% url 'filter_trains' %}" class="search-destination">
+												
+										<div class="row">
+											<div class="col-md align-items-end">
+												<div class="form-group">
+													<label for="#">Origin</label>
+													<div class="form-field">
+														<div class="icon"><span class="icon-my_location"></span></div>
+														<input type="text" name='origin' class="form-control" placeholder="From">
+													</div>
+												</div>
+											</div>
+											<div class="col-md align-items-end">
+												<div class="form-group">
+													<label for="#">Destination</label>
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="text" name="dest" class="form-control" placeholder="Where">
+													</div>
+												</div>
+											</div>
+											<div class="col-md align-items-end">
+												<div class="form-group">
+													<label for="#">Departure</label>
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="text" name="dept" class="form-control checkin_date" placeholder="Departure">
+													</div>
+												</div>
+											</div>
+											<div class="col-md align-items-end">
+												<div class="form-group">
+													<label for="#">Arrival</label>
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="text" name="arrival" class="form-control checkout_date" placeholder="Arrival">
+													</div>
+												</div>
+											</div>
+											<div class="col-md align-items-end">
+												<div class="form-group">
+													<label for="#">No. of passengers</label>
+													<div class="form-field">
+														<div class="select-wrap">
+															<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+															<input class="form-control" type="number" min="1" max="10" name="passengers" placeholder="1">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md align-self-end">
+												<div class="form-group">
+													<div class="form-field">
+														<input type="submit" value="Search" class="form-control btn btn-primary">
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									
+	
+	
+	
+								</div>
 
               <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-performance-tab">
               	<form action="#" class="search-destination">

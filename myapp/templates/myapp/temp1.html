@@ -1,0 +1,13 @@
+{% block content %}
+
+TRAINS FROM {{origin}} to {{dest}}:
+<br>
+
+{% for f in train_list %}
+
+    <a href="{{f.pk}}">{{f.train_name}}</a><br>
+
+{% endfor %}
+
+
+{% endblock %}
