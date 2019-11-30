@@ -90,4 +90,6 @@ class Bookings (models.Model):
 	user = models.ForeignKey (User, on_delete = models.CASCADE, related_name="userboi", null = True)
 	booking_type = models.CharField (max_length=8, default="")
 	key = models.IntegerField ()
+	timestamp = models.DateTimeField (auto_now = True)
+	price = models.FloatField (default = 0.0)
 	
