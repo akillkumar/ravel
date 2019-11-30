@@ -5,6 +5,11 @@ from django.contrib.auth.models import User
 
 from .models import Flight, Trains, Buses, Hotel, Bookings
 
+from datetime import date,datetime
+import datetime as dt
+
+myVar=0
+
 def index (request):
 	return render (request, 'myapp/index.html', {})
 
@@ -31,6 +36,8 @@ def filter_flights (request):
 		dest = request.GET.get('dest','')
 		dept = request.GET.get('dept','')
 		res = datetime.strptime(dept,'%m/%d/%Y')
+		print('RESSSSSSSSSSSSSS')
+		print(res.day)
 		dates = {}
 		myVar +=1
 		print('my var = ', myVar)
@@ -43,6 +50,11 @@ def filter_flights (request):
 
 		sort = request.GET.get('sort','')
 		deptTime = request.GET.get('deptTime','')
+		airline = request.GET.get('airline','')
+		arrivalTime = request.GET.get('arrivalTime','')
+		fclass = request.GET.get('class','')
+
+		
 
 		results = Flight.objects.filter(
 			origin__icontains = origin,
@@ -51,23 +63,68 @@ def filter_flights (request):
 			dept__month = res.month,
 			dept__day = res.day, 
 			seats__gte = passengers)
+
+		print('HELLOOOOOOOOOOOo')
+		print(results)
 		
 		if(sort):
+			print('yes, sort')
 			if(sort=='price'):
 				order='price'
 
 			if(sort=='-price'):
 				order='-price'
 
-			results.order_by(order)
+			results = results.order_by(order)
 		
 		if deptTime:
 
 			print('YEEEEEEEE')
 			
-			if deptTime=='1' or deptTime==1:
-				print('NEEEEEEEEEEe')
-				results.filter(dept__hour__lt = 10)
+			if deptTime=='0' or deptTime==0:
+				lo = '00:00'
+				hi = '06:00'
+			elif deptTime=='1':
+				lo = '06:00'
+				hi = '12:00'
+			elif deptTime=='2':
+				lo = '12:00'
+				hi = '20:00'
+			else:
+				lo = '20:00'
+				hi = '23:59'
+			
+			begin = datetime.strptime(lo, '%H:%M').time()
+			end = datetime.strptime(hi, '%H:%M').time()
+			results = results.filter(deptTime__range=(begin, end))
+
+		if arrivalTime:
+
+			print('YEEEEEEEE')
+			
+			if arrivalTime=='0' or arrivalTime==0:
+				lo = '00:00'
+				hi = '06:00'
+			elif arrivalTime=='1':
+				lo = '06:00'
+				hi = '12:00'
+			elif arrivalTime=='2':
+				lo = '12:00'
+				hi = '20:00'
+			else:
+				lo = '20:00'
+				hi = '23:59'
+			
+			begin = datetime.strptime(lo, '%H:%M').time()
+			end = datetime.strptime(hi, '%H:%M').time()
+			results = results.filter(arrivalTime__range=(begin, end))
+
+		if fclass:
+			results = results.filter(flight_class__iexact = fclass)
+
+		if airline:
+
+			results = results.filter(airline__iexact = airline)
 			
 
 		
@@ -80,7 +137,11 @@ def filter_flights (request):
 			'passengers': passengers,
 			'dates':dates,
 			'res':res,
-			'sort':sort
+			'sort':sort,
+			'deptTime':deptTime,
+			'airline':airline,
+			'arrivalTime':arrivalTime,
+			'class':fclass
 		})
 
 

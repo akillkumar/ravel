@@ -6,19 +6,27 @@ from django.contrib.auth.models import User
 def default_start_time():
     now = datetime.now()
     start = now.replace(hour=22, minute=0, second=0, microsecond=0)
-    return start if start > now else start + timedelta(days=1)  
+    return start if start > now else start + timedelta(days=1) 
+def default_start_date():
+    now = datetime.now().date
+    
 
 # Every class is a table in our DB, and we make use of django's ORM to simplify back end calls
 class Flight (models.Model):
-	flight_name = models.CharField (max_length = 10, default = "")
+	flight_name = models.CharField (max_length = 30, default = "")
 	flight_number = models.IntegerField (unique = True)
+
+	airline = models.CharField (max_length = 30, default = "")
 
 	origin = models.CharField (max_length = 4)
 	dest = models.CharField (max_length = 4)
 	
 	duration = models.FloatField (default=0.0)
-	dept = models.DateTimeField (auto_now = False, default=default_start_time)
-	arrival = models.DateTimeField (auto_now = False, default=default_start_time)
+	dept = models.DateField (auto_now = False, default=default_start_date)
+	arrival = models.DateField (auto_now = False, default=default_start_date)
+
+	deptTime = models.TimeField (auto_now = False, default=default_start_time)
+	arrivalTime = models.TimeField (auto_now = False, default=default_start_time)
 	
 	flight_class = models.CharField (max_length = 20, default = "")
 	seats = models.IntegerField (default = 0)
