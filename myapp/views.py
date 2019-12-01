@@ -18,8 +18,36 @@ def details (request, flight_id):
 	return render(request, 'myapp/details.html', {'flight' : flight})
 
 def places (request):
-	hotel_list = Hotel.objects.all()
-	return render (request, 'myapp/places.html', context={'hotel_list': hotel_list})
+	if request.method=='GET':
+		city = request.GET.get('location','').split('-')[0]
+		guests = request.GET.get('guests','')
+		priceLow = request.GET.get('priceLow','')
+		priceHigh = request.GET.get('priceHigh','')
+
+		if not priceLow:
+			priceLow=0
+		if not priceHigh:
+			priceHigh=120000
+
+		checkin = request.GET.get('checkin','')
+		res1 = datetime.strptime(checkin,'%m/%d/%Y')
+
+		checkout = request.GET.get('checkout','')
+		res2 = datetime.strptime(checkout,'%m/%d/%Y')
+
+		print((res2-res1).days)
+
+		hotel_list = Hotel.objects.filter(hotel_city__icontains = city, price__gte = priceLow, price__lte = priceHigh)
+		return render (request, 'myapp/places.html', 
+			context={
+				'hotel_list': hotel_list,
+				'city':city,
+				'nights':(res2-res1).days,
+				'checkin':checkin,
+				'checkout':checkout,
+				'guests':guests,
+				'priceLow':priceLow,
+				'priceHigh':priceHigh})
 
 def myFunc (request):
 	if request.method=='GET':
@@ -76,7 +104,7 @@ def filter_flights (request):
 			seats__gte = passengers).order_by('price')
 
 			if len(prices[i]):
-				prices[i] = '₹ '+str(prices[i][0].price)
+				prices[i] = '₹ '+str((prices[i][0].price)*int(passengers))
 			else:
 				prices[i] = '-'
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+		{% load mathfilters %}
 	{% load static %}
     <title>Adventure - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -32,7 +33,8 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-warning ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Adventure</a>
+				<a class="navbar-brand" href="index.html">Adventure</a>
+				
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -58,41 +60,39 @@
         <div class="row">
         	<div class="col-lg-3 sidebar order-md-last ftco-animate">
         		<div class="sidebar-wrap ftco-animate">
-        			<h3 class="heading mb-4">Find City</h3>
-        			<form action="#">
+        			<h3 class="heading mb-4">Filter Hotels</h3>
+        			<form action="{% url 'places' %}" method="GET">
         				<div class="fields">
+									<div class="autocomplete">
+											<p>City</p>
 		              <div class="form-group">
-		                <input type="text" class="form-control" placeholder="Destination, City">
-		              </div>
+		                <input type="text" id="cityInput" name="location" class="form-control" value="{{city}}" placeholder="Any">
+									</div>
+								</div>
+								<p>Check-in Date</p>
 		              <div class="form-group">
-		                <div class="select-wrap one-third">
-	                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                    <select name="" id="" class="form-control" placeholder="Keyword search">
-	                      <option value="">Select Location</option>
-	                      <option value="">San Francisco USA</option>
-	                      <option value="">Berlin Germany</option>
-	                      <option value="">Lodon United Kingdom</option>
-	                      <option value="">Paris Italy</option>
-	                    </select>
-	                  </div>
-		              </div>
+		                <input type="text" id="checkin_date" name="checkin" value="{{checkin}}" class="form-control checkin_date" placeholder="Date from">
+									</div>
+									<p>Check-out Date</p>
 		              <div class="form-group">
-		                <input type="text" id="checkin_date" class="form-control checkin_date" placeholder="Date from">
-		              </div>
+		                <input type="text" id="checkout_date" name="checkout" value="{{checkout}}" class="form-control checkout_date" placeholder="Date to">
+									</div>
+									<p>Number of Guests</p>
 		              <div class="form-group">
-		                <input type="text" id="checkout_date" class="form-control checkout_date" placeholder="Date to">
-		              </div>
+		                <input type="number" min="1" name="guests" class="form-control" value="{{guests}}" placeholder="Guests">
+									</div>
+									<p>Price per night (per room)</p>
 		              <div class="form-group">
 		              	<div class="range-slider">
 		              		<span>
-										    <input type="number" value="25000" min="0" max="120000"/>	-
-										    <input type="number" value="50000" min="0" max="120000"/>
+										    <input type="number" name="priceLow" value="{{priceLow}}" min="0" max="120000"/>	-
+										    <input type="number" name="priceHigh" value="{{priceHigh}}" min="0" max="120000"/>
 										  </span>
-										  <input value="1000" min="0" max="120000" step="500" type="range"/>
-										  <input value="50000" min="0" max="120000" step="500" type="range"/>
-										  </svg>
+										  
 										</div>
-		              </div>
+										
+									</div>
+									
 		              <div class="form-group">
 		                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
 		              </div>
@@ -161,11 +161,11 @@
 				    						</p>
 			    						</div>
 			    						<div class="two">
-			    							<span class="price"> {{ hotel.price }}</span>
+			    							<span class="price"> {{ hotel.price | mul:nights }}</span>
 		    							</div>
 		    						</div>
 		    						<p>{{ hotel.hotel_description }}</p>
-		    						<p class="days"><span>2 days 3 nights</span></p>
+		    						<p class="days"><span>{{nights}} nights ~ {{guests}} guests</span></p>
 		    						<hr>
 		    						<p class="bottom-area d-flex">
 		    							<span><i class="icon-map-o"></i>{{ hotel.hotel_address }}</span> 
@@ -310,3 +310,145 @@
     
   </body>
 </html>
+
+<style>
+	.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+</style>
+
+
+<script>
+
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].toUpperCase().includes(val.toUpperCase())) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+
+var cityCodes = ['AGX - Agatti Island', 'AMD - Ahmedabad', 'AJL - Aizawl', 'AKD - Akola', 'IXV - Along', 'LKO - Lucknow', 'LUH - Ludhiana', 'IXB - Bagdogra', 'IXE - Mangalore', 'IXL - Leh', 'RGH - Balurghat', 'IXD - Allahabad', 'SHL - Shillong', 'BEK - Bareli', 'BEP - Bellary', 'BLR - Bangalore', 'BUP - Bhatinda', 'BHU - Bhavnagar', 'BHO - Bhopal', 'BBI - Bhubaneswar', 'BKB - Bikaner', 'PAB - Bilaspur', 'IXR - Ranchi', 'GAU - Guwahati', 'CBD - Car Nicobar', 'IXC - Chandigarh', 'MAA - Chennai', 'BOM - Mumbai', 'IXU - Aurangabad', 'COK - Kochi', 'COH - Cooch Behar', 'CDP - Cuddapah', 'UDR - Udaipur', 'GOI - Goa', 'NMB - Daman', 'DAE - Daparizo', 'DAI - Darjeeling', 'DED - Dehra Dun', 'DEP - Deparizo', 'IDR - Indore', 'DBD - Dhanbad', 'DIB - Dibrugarh', 'DMU - Dimapur', 'DIU - Diu', 'DHM - Dharamsala', 'ISK - Nasik', 'GAY - Gaya', 'GOP - Gorakhpur', 'JGA - Jamnagar', 'GUX - Guna', 'GWL - Gwalior', 'HSS - Hissar', 'HBX - Hubli', 'HYD - Hyderabad', 'DEL - New Delhi', 'JLR - Jabalpur', 'JGB - Jagdalpur', 'JSA - Jaisalmer', 'PYB - Jeypore', 'JDH - Jodhpur', 'IXH - Kailashahar', 'IXQ - Kamalpur', 'IXY - Kandla', 'KNU - Kanpur', 'IXK - Keshod', 'HJR - Khajuraho', 'AGR - Agra', 'IXN - Khowai', 'KLH - Kolhapur', 'KTU - Kota', 'CCJ - Kozhikode', 'KUU - Bhuntar Kullu.', 'IXS - Silchar', 'IXI - Lilabari', 'PNQ - Pune', 'IXM - Madurai', 'LDA - Malda', 'MOH - Mohanbari', 'IMF - Imphal', 'MZA - Muzaffarnagar', 'MZU - Muzaffarpur', 'MYQ - Mysore', 'NDC - Nanded', 'CCU - Kolkata', 'NVY - Neyveli', 'OMN - Osmanabad', 'PGH - Pantnagar', 'IXT - Pasighat', 'IXP - Pathankot', 'PAT - Patna', 'CJB - Coimbatore', 'PNY - Pondicherry', 'PBD - Porbandar', 'IXZ - Port Blair', 'PUT - Puttaparthi', 'RPR - Raipur', 'ATQ - Amritsar', 'RJA - Rajahmundry', 'RAJ - Rajkot', 'RJI - Rajouri', 'RMD - Ramagundam', 'RTC - Ratnagiri', 'REW - Rewa', 'RRK - Rourkela', 'JRH - Jorhat', 'BHJ - Bhuj', 'RUP - Rupsi', 'SXV - Salem', 'TEZ - Tezpur', 'IXG - Belgaum', 'JAI - Jaipur', 'TNI - Satna', 'IXJ - Jammu', 'SSE - Sholapur', 'SLV - Simla', 'IXA - Agartala', 'IXW - Jamshedpur', 'NAG - Nagpur', 'SXR - Srinagar', 'STV - Surat', 'TEI - Tezu', 'TJV - Thanjavur', 'TRV - Trivandrum', 'TIR - Tirupati', 'TRZ - Trichy', 'TCR - Tuticorin', 'BDQ - Vadodara', 'VNS - Varanasi', 'VGA - Vijayawada', 'VTZ - Vishakhapatnam', 'WGC - Warangal','ZER - Zero']
+
+autocomplete(document.getElementById("cityInput"), cityCodes);
+
+
+
+</script>
