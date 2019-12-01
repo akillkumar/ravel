@@ -18,7 +18,8 @@ def details (request, flight_id):
 	return render(request, 'myapp/details.html', {'flight' : flight})
 
 def places (request):
-	return render (request, 'myapp/places.html', context={})
+	hotel_list = Hotel.objects.all()
+	return render (request, 'myapp/places.html', context={'hotel_list': hotel_list})
 
 def myFunc (request):
 	if request.method=='GET':
@@ -36,8 +37,6 @@ def filter_flights (request):
 		dest = request.GET.get('dest','')
 		dept = request.GET.get('dept','')
 		res = datetime.strptime(dept,'%m/%d/%Y')
-		print('RESSSSSSSSSSSSSS')
-		print(res.day)
 		dates = {}
 		myVar +=1
 		print('my var = ', myVar)

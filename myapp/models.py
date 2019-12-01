@@ -17,6 +17,8 @@ class Flight (models.Model):
 	flight_number = models.IntegerField (unique = True)
 
 	airline = models.CharField (max_length = 30, default = "")
+	airline_cover = models.ImageField  (upload_to='mdeia/airline_images', blank = True)
+
 
 	origin = models.CharField (max_length = 4)
 	dest = models.CharField (max_length = 4)
@@ -82,7 +84,10 @@ class Hotel (models.Model):
 	hotel_city = models.CharField (max_length = 4, default = "")
 	hotel_zip = models.IntegerField (default = 0)
 
+	hotel_cover = models.ImageField  (upload_to='media/hotel_images', blank = True)
+
 	# deets
+	guests_per_room = models.IntegerField (default = 0)
 	hotel_beds = models.IntegerField (default = 0)
 	hotel_baths = models.IntegerField (default = 0)
 	hotel_rooms = models.IntegerField (default = 0)
