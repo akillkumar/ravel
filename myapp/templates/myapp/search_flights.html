@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+
 		{%load static%}
 		
 {% load crispy_forms_tags %}
@@ -32,8 +34,6 @@
   <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=aVWLpradGvYPcVBM1I9ShN9kn2scBJtbIKpyzCWACT0fdwNS5ks6Xg2GzZZ1YBQ4AF2tX1urUgvjGrv4m19qukreebo7-loIkCOG-5po8rKe-Unf6Vg87OEbEDBp0J0ZVzKI742evvQuW9uiSWJx4bKeHY0vhO9hf02tgZeURpz8mnDlO2q4NzrwoA-l3MLQ0-ghevCvHr_v5VqiuFVwFNdxVuIKsIvtI3Fo5oEMR_Ugiu3XypSGaG46G_B_VDw_0i24pf8BzB3FVgGFhcMo9tU8n3gOyg_YRRhUHPiuz80_3nxYHGqeCHozxBv65cdfexTrYzW8GJ1xwZQoYKcRawbEXgOSQp-KbF8l7Zb13gcnzI2ijukCJbC1sRJkQP0Cvr6obMYxnLLYboCdS-Da5Out1sgwGp9LVN9c75lwBjsaL4lJKRvkvI67zks73vWKxEXieoUW7iVwYG0oi0iNMJjQxD7SVkSfzo3m1iWW2wYx8oXFvRlqNkYg1wQOTFeYBFfvKBHuMRv1Zxv6jOj35mFTjdcrniMwYosoOGrR1_KdWI8365ceDaZkUluxRyD5gQOnX6V1xZFgzrd6Q9kIho-6hbpKZkoiB7FQEQDoNF5QOlqhUV-PjBlCnCXI37o6se6LfMokI0kKeK4EbStMNwpnQL4wB-QOtHpHOKUjf4OjjLRpxbiCaTqzjraPx8c_evxWnXjrW7djfaYolireeN3zxxmhPr1qwEU5G1zJqOZf3QmkjfRrQNe4CmH5QK6DFol7eTjkNB4TqHY59veH8q5qHktDMJpd67ZyiarOXrVrNKIJ9Y3S0TSjvAD2fcto_tWYimVvZ4VTJOU6KwyfTDYMt_8KBDRHZA_bftgvS9id6IWLoQMMwjy-WVYnTgQXoHDc6w6U_ZwRlHwA7rJzUQ14sn_frjJkjxbws5-BKaXgBvwvF8KP9-y6i-Rz6mqEtuJK2AIZr95mdXbmTVLG98rLRYzDSC338lckLfJF3e1Te4h4pD-Ofz0mtpzjZLE3FrWFGe9FkzoHIOvbmk4Mkoo767c4dcxgWGNUIoa66YQmwy4OcMf3gyRLrYMmqfijILHMkcTC316YFKAyCTenZ-AJ4hnoZzY5Cp11KVG2HLvKq6Rf7sPPvO1t5pCJ3Z6cB1AENr5PnGOq0gHDRZ-P4Q4SDTGl8Y7sZosjeVfnRoE" nonce="37fd3ded8dcfc27143308d7b653b3b4d" charset="UTF-8"></script></head>
   <body>
 
-
-    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <form method="GET" action="{% url 'filter_flights' %}" class="form-inline my-2 my-lg-0">
@@ -135,7 +135,7 @@
                   <div class="card mb-5 mb-lg-0">
                     <div class="card-body">
                       <h5 class="card-title text-muted text-uppercase text-center">{{dates.0.date}}</h5>
-                      <h6 class="card-price text-center">$100</h6>
+                      <h6 class="card-price text-center">{{prices.0}}</h6>
                      
                       
 
@@ -149,7 +149,7 @@
                         <div class="card mb-5 mb-lg-0">
                           <div class="card-body">
                             <h5 class="card-title text-muted text-uppercase text-center">{{dates.1.date}}</h5>
-                            <h6 class="card-price text-center">$99</h6>
+                            <h6 class="card-price text-center">{{prices.1}}</h6>
                             
                            
                           </div>
@@ -162,7 +162,7 @@
                             <div class="card mb-5 mb-lg-0" style="background-color: rgb(67, 91, 95)">
                               <div class="card-body ">
                                 <h5 class="card-title text-uppercase text-center text-info">{{dates.2.date}}</h5>
-                                <h6 class="card-price text-center text-info">$99</h6>
+                                <h6 class="card-price text-center text-info">{{prices.2}}</h6>
                                 
                                
                               </div>
@@ -198,7 +198,7 @@ function formattedDate(d = new Date) {
                                 <div class="card mb-5 mb-lg-0">
                                   <div class="card-body">
                                     <h5 class="card-title text-muted text-uppercase text-center">{{dates.3.date}}</h5>
-                                    <h6 class="card-price text-center">$99</h6>
+                                    <h6 class="card-price text-center">{{prices.3}}</h6>
                                     
                                    
                                   </div>
@@ -212,7 +212,7 @@ function formattedDate(d = new Date) {
                                     <div class="card mb-5 mb-lg-0">
                                       <div class="card-body">
                                         <h5 class="card-title text-muted text-uppercase text-center">{{dates.4.date}}</h5>
-                                        <h6 class="card-price text-center">$99</h6>
+                                        <h6 class="card-price text-center">{{prices.4}}</h6>
                                         
                                        
                                       </div>
@@ -225,7 +225,7 @@ function formattedDate(d = new Date) {
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title text-muted text-uppercase text-center">{{dates.5.date}}</h5>
-                      <h6 class="card-price text-center">$49</h6>
+                      <h6 class="card-price text-center">{{prices.5}}</h6>
                      
                      
                         
@@ -419,7 +419,11 @@ function formattedDate(d = new Date) {
                                           <span class="bg-dark text-light">Duration: &nbsp </span>  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp   &nbsp   &nbsp
                                           <span class="bg-danger text-light">Arrival Time: &nbsp </span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp  &nbsp 
                                           Price:&nbsp   &nbsp 
-                                          <button type="button" class="btn btn-primary">Book Now</button>
+                                          <form method="POST" action="/myapp/booking/" class="form-group">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="flight_id" value="{{ flight.pk }}">
+                                            <button type="submit" class="btn btn-success">Book</button>
+                                        </form>
           
           
           
@@ -447,6 +451,7 @@ function formattedDate(d = new Date) {
 
                     
                     </div>
+
 
                     
         <!-- loader -->

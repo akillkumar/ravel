@@ -113,7 +113,7 @@
               					<label for="#">Departure</label>
               					<div class="form-field">
 	              					<div class="icon"><span class="icon-map-marker"></span></div>
-					                <input type="text" name="dept" class="form-control checkin_date" placeholder="Departure">
+					                <input type="text" name="dept" value="12/27/2019" class="form-control checkin_date" placeholder="Departure" required>
 					              </div>
 				              </div>
               			</div>
@@ -149,54 +149,54 @@
 								
 									<form method="GET" action="{% url 'filter_trains' %}" class="search-destination">
 												
-										<div class="row">
-											<div class="col-md align-items-end">
-												<div class="form-group">
-													<label for="#">Origin</label>
-													<div class="form-field">
-														<div class="icon"><span class="icon-my_location"></span></div>
-														<input type="text" name='origin' class="form-control" placeholder="From">
+											<div class="row">
+													<div class="col-md align-items-end">
+														<div class="form-group">
+															<label for="#">Origin</label>
+															<div class="form-field">
+																<div class="icon"><span class="icon-my_location"></span></div>
+																<input type="text" name='origin' class="form-control" placeholder="From">
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-											<div class="col-md align-items-end">
-												<div class="form-group">
-													<label for="#">Destination</label>
-													<div class="form-field">
-														<div class="icon"><span class="icon-map-marker"></span></div>
-														<input type="text" name="dest" class="form-control" placeholder="Where">
+													<div class="col-md align-items-end">
+														<div class="form-group">
+															<label for="#">Destination</label>
+															<div class="form-field">
+																<div class="icon"><span class="icon-map-marker"></span></div>
+																<input type="text" name="dest" class="form-control" placeholder="Where">
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-											<div class="col-md align-items-end">
-												<div class="form-group">
-													<label for="#">Departure</label>
-													<div class="form-field">
-														<div class="icon"><span class="icon-map-marker"></span></div>
-														<input type="text" name="dept" class="form-control checkin_date" placeholder="Departure">
+													<div class="col-md align-items-end">
+														<div class="form-group">
+															<label for="#">Departure</label>
+															<div class="form-field">
+																<div class="icon"><span class="icon-map-marker"></span></div>
+																<input type="text" name="dept" value="12/27/2019" class="form-control checkin_date" placeholder="Departure" required>
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-											
-											<div class="col-md align-items-end">
-												<div class="form-group">
-													<label for="#">No. of passengers</label>
-													<div class="form-field">
-														<div class="select-wrap">
-															<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-															<input class="form-control" type="number" min="1" max="10" name="passengers" placeholder="1">
+													
+													<div class="col-md align-items-end">
+														<div class="form-group">
+															<label for="#">No. of passengers</label>
+															<div class="form-field">
+																<div class="select-wrap">
+																	<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+																	<input class="form-control" type="number" min="1" max="10" name="passengers" value="1">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md align-self-end">
+														<div class="form-group">
+															<div class="form-field">
+																<input type="submit" value="Search" class="form-control btn btn-primary">
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col-md align-self-end">
-												<div class="form-group">
-													<div class="form-field">
-														<input type="submit" value="Search" class="form-control btn btn-primary">
-													</div>
-												</div>
-											</div>
-										</div>
 									</form>
 									
 	

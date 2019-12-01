@@ -64,6 +64,21 @@ def filter_flights (request):
 			dept__day = res.day, 
 			seats__gte = passengers)
 
+		prices = {}
+		for i in range(6):
+			prices[i] = Flight.objects.filter(
+			origin__icontains = origin,
+			dest__icontains = dest,
+			dept__year = dates[i].year,
+			dept__month = dates[i].month,
+			dept__day = dates[i].day, 
+			seats__gte = passengers).order_by('price')
+
+			if len(prices[i]):
+				prices[i] = '₹ '+str(prices[i][0].price)
+			else:
+				prices[i] = '-'
+
 		print('HELLOOOOOOOOOOOo')
 		print(results)
 		
@@ -128,7 +143,7 @@ def filter_flights (request):
 			
 
 		
-	return render (request, 'myapp/search.html', 
+	return render (request, 'myapp/search_flights.html', 
 		{
 			'flight_list': results, 
 			'origin':origin,
@@ -141,21 +156,129 @@ def filter_flights (request):
 			'deptTime':deptTime,
 			'airline':airline,
 			'arrivalTime':arrivalTime,
-			'class':fclass
+			'class':fclass,
+			'prices':prices
 		})
 
 
 def filter_trains (request):
+	global myVar
 	if request.method=='GET':
 		origin=request.GET.get('origin','')
 		dest = request.GET.get('dest','')
-		x = request.GET.get('dept','')
+		dept = request.GET.get('dept','')
+		res = datetime.strptime(dept,'%m/%d/%Y')
+		dates = {}
+		myVar +=1
+		for i in range(6):
+			dates[i] = res + dt.timedelta(days=i-2)
+		
+		passengers = request.GET.get('passengers','')
 
-		print('departure = ',x.split('/'))
+		
 
-		results = Trains.objects.filter(origin__icontains = origin,dest__icontains = dest)
+		sort = request.GET.get('sort','')
+		deptTime = request.GET.get('deptTime','')
+		arrivalTime = request.GET.get('arrivalTime','')
+		tclass = request.GET.get('class','')
 
-	return render (request, 'myapp/temp1.html', {'train_list': results, 'origin':origin,'dest':dest})
+		
+
+		results = Trains.objects.filter(
+			origin__icontains = origin,
+			dest__icontains = dest,
+			dept__year = res.year,
+			dept__month = res.month,
+			dept__day = res.day, 
+			seats__gte = passengers)
+
+		prices = {}
+		for i in range(6):
+			prices[i] = Trains.objects.filter(
+			origin__icontains = origin,
+			dest__icontains = dest,
+			dept__year = dates[i].year,
+			dept__month = dates[i].month,
+			dept__day = dates[i].day, 
+			seats__gte = passengers).order_by('price')
+
+			if len(prices[i]):
+				prices[i] = '₹ '+str(prices[i][0].price)
+			else:
+				prices[i] = '-'
+
+		if(sort):
+			print('yes, sort')
+			if(sort=='price'):
+				order='price'
+
+			if(sort=='-price'):
+				order='-price'
+
+			results = results.order_by(order)
+		
+		if deptTime:
+
+			if deptTime=='0' or deptTime==0:
+				lo = '00:00'
+				hi = '06:00'
+			elif deptTime=='1':
+				lo = '06:00'
+				hi = '12:00'
+			elif deptTime=='2':
+				lo = '12:00'
+				hi = '20:00'
+			else:
+				lo = '20:00'
+				hi = '23:59'
+			
+			begin = datetime.strptime(lo, '%H:%M').time()
+			end = datetime.strptime(hi, '%H:%M').time()
+			results = results.filter(deptTime__range=(begin, end))
+
+		if arrivalTime:
+
+			if arrivalTime=='0' or arrivalTime==0:
+				lo = '00:00'
+				hi = '06:00'
+			elif arrivalTime=='1':
+				lo = '06:00'
+				hi = '12:00'
+			elif arrivalTime=='2':
+				lo = '12:00'
+				hi = '20:00'
+			else:
+				lo = '20:00'
+				hi = '23:59'
+			
+			begin = datetime.strptime(lo, '%H:%M').time()
+			end = datetime.strptime(hi, '%H:%M').time()
+			results = results.filter(arrivalTime__range=(begin, end))
+
+		if tclass:
+			results = results.filter(flight_class__iexact = tclass)
+
+		
+	
+
+		
+	return render (request, 'myapp/search_trains.html', 
+		{
+			'train_list': results, 
+			'origin':origin,
+			'dest':dest,
+			'dept':dept,
+			'passengers': passengers,
+			'dates':dates,
+			'res':res,
+			'sort':sort,
+			'deptTime':deptTime,
+			'arrivalTime':arrivalTime,
+			'class':tclass,
+			'prices':prices
+		})
+
+
 
 
 def  book_flight (request):

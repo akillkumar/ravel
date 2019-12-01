@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+
+		{%load static%}
+		
+{% load crispy_forms_tags %}
+    <title>Ravel | Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{%static 'myapp/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/style.css' %}">
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=aVWLpradGvYPcVBM1I9ShN9kn2scBJtbIKpyzCWACT0fdwNS5ks6Xg2GzZZ1YBQ4AF2tX1urUgvjGrv4m19qukreebo7-loIkCOG-5po8rKe-Unf6Vg87OEbEDBp0J0ZVzKI742evvQuW9uiSWJx4bKeHY0vhO9hf02tgZeURpz8mnDlO2q4NzrwoA-l3MLQ0-ghevCvHr_v5VqiuFVwFNdxVuIKsIvtI3Fo5oEMR_Ugiu3XypSGaG46G_B_VDw_0i24pf8BzB3FVgGFhcMo9tU8n3gOyg_YRRhUHPiuz80_3nxYHGqeCHozxBv65cdfexTrYzW8GJ1xwZQoYKcRawbEXgOSQp-KbF8l7Zb13gcnzI2ijukCJbC1sRJkQP0Cvr6obMYxnLLYboCdS-Da5Out1sgwGp9LVN9c75lwBjsaL4lJKRvkvI67zks73vWKxEXieoUW7iVwYG0oi0iNMJjQxD7SVkSfzo3m1iWW2wYx8oXFvRlqNkYg1wQOTFeYBFfvKBHuMRv1Zxv6jOj35mFTjdcrniMwYosoOGrR1_KdWI8365ceDaZkUluxRyD5gQOnX6V1xZFgzrd6Q9kIho-6hbpKZkoiB7FQEQDoNF5QOlqhUV-PjBlCnCXI37o6se6LfMokI0kKeK4EbStMNwpnQL4wB-QOtHpHOKUjf4OjjLRpxbiCaTqzjraPx8c_evxWnXjrW7djfaYolireeN3zxxmhPr1qwEU5G1zJqOZf3QmkjfRrQNe4CmH5QK6DFol7eTjkNB4TqHY59veH8q5qHktDMJpd67ZyiarOXrVrNKIJ9Y3S0TSjvAD2fcto_tWYimVvZ4VTJOU6KwyfTDYMt_8KBDRHZA_bftgvS9id6IWLoQMMwjy-WVYnTgQXoHDc6w6U_ZwRlHwA7rJzUQ14sn_frjJkjxbws5-BKaXgBvwvF8KP9-y6i-Rz6mqEtuJK2AIZr95mdXbmTVLG98rLRYzDSC338lckLfJF3e1Te4h4pD-Ofz0mtpzjZLE3FrWFGe9FkzoHIOvbmk4Mkoo767c4dcxgWGNUIoa66YQmwy4OcMf3gyRLrYMmqfijILHMkcTC316YFKAyCTenZ-AJ4hnoZzY5Cp11KVG2HLvKq6Rf7sPPvO1t5pCJ3Z6cB1AENr5PnGOq0gHDRZ-P4Q4SDTGl8Y7sZosjeVfnRoE" nonce="37fd3ded8dcfc27143308d7b653b3b4d" charset="UTF-8"></script></head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <form method="GET" action="{% url 'filter_trains' %}" class="form-inline my-2 my-lg-0">
+            
+        
+            <li class="nav-item dropdown list-unstyled">
+                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      From
+                      <br>
+                      <input name="origin" value="{{origin}}" placeholder="Any" class="alert alert-secondary" role="alert">
+                      
+                  
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Delhi</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Sonipat</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Mumbai</a>
+                    </div>
+                  </li>
+
+                  <li class="nav-item dropdown list-unstyled">
+                        <a class="nav-link py-0 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          To
+                          <br>
+                          <input name="dest" value="{{dest}}" placeholder="Any" class="alert alert-secondary" role="alert">
+                      
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="#">Delhi</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Sonipat</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Mumbai</a>
+                        </div>
+                      </li>
+
+
+                      <li class="nav-item dropdown list-unstyled">
+                            <a class="nav-link py-0 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Departure Date:
+                            </a>
+                            <div class="form-group">
+                                    
+                                    <div class="form-field">
+                                        
+                                      <input id='mainDept' name="dept" type="text" class="form-control checkin_date" value="{{dept}}" placeholder="Departure Date">
+                                    </div>
+                                </div>
+                          </li>
+
+                          <li class="nav-item dropdown list-unstyled">
+                                <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Number Of Passengers:
+                                  <br>
+                                  <input name="passengers" style="width: 240px" type="number" min="1" value="{{passengers}}" class="alert alert-secondary" role="alert">
+                                 
+                                </a>
+                                
+                              </li>
+          </ul>
+
+          <input type='hidden' name='sort' value="{{sort}}">
+          <input type='hidden' name='deptTime' value="{{deptTime}}">
+          
+          <input type='hidden' name='arrivalTime' value="{{arrivalTime}}">
+          <input type='hidden' name='airline' value="{{airline}}">
+          <input type='hidden' name='class' value="{{class}}">
+          
+            
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          
+        </div>
+      </form>
+      </nav>
+      
+  
+
+
+<br>
+    <section class="pricing py-5" style="background: #020202;
+    background: linear-gradient(to right, rgb(121, 120, 121), rgb(8, 8, 8));">
+            <div class="container">
+              <form action="{% url 'filter_trains' %}" method='GET'>
+                <input type='hidden' name='origin' value="{{origin}}">
+                <input type='hidden' name='dest' value="{{dest}}">
+                <input style="display: none" class="form-control checkin_date" type='text' id='hiddenDept' value="{{dept}}" name='dept'>
+                <input type='hidden' name='passengers' value="{{passengers}}">
+                <input type='hidden' name='sort' value="{{sort}}">
+                <input type='hidden' name='deptTime' value="{{deptTime}}">
+                <input type='hidden' name='arrivalTime' value="{{arrivalTime}}">
+                <input type='hidden' name='airline' value="{{airline}}">
+                <input type='hidden' name='class' value="{{class}}">
+              <div class="row">
+                <!-- Free Tier -->
+                <div class="col-lg-2">
+                    <a href="#" onclick="myFunc(0);document.getElementById('submitDateForm').click()">
+                  <div class="card mb-5 mb-lg-0">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{{dates.0.date}}</h5>
+                      <h6 class="card-price text-center">{{prices.0}}</h6>
+                     
+                      
+
+                    </div>
+                  </div>
+                  </a>
+                </div>
+                <!-- Plus Tier -->
+                <div class="col-lg-2">
+                    <a href="#" onclick="myFunc(1);document.getElementById('submitDateForm').click()">
+                        <div class="card mb-5 mb-lg-0">
+                          <div class="card-body">
+                            <h5 class="card-title text-muted text-uppercase text-center">{{dates.1.date}}</h5>
+                            <h6 class="card-price text-center">{{prices.1}}</h6>
+                            
+                           
+                          </div>
+                        </div>
+                        </a>
+                      </div>
+
+                      <div class="col-lg-2">
+                        <a href="">
+                            <div class="card mb-5 mb-lg-0" style="background-color: rgb(67, 91, 95)">
+                              <div class="card-body ">
+                                <h5 class="card-title text-uppercase text-center text-info">{{dates.2.date}}</h5>
+                                <h6 class="card-price text-center text-info">{{prices.2}}</h6>
+                                
+                               
+                              </div>
+                            </div>
+                            </a>
+                          </div>
+
+                          <script>
+
+function formattedDate(d = new Date) {
+  let month = String(d.getMonth() + 1);
+  let day = String(d.getDate());
+  const year = String(d.getFullYear());
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return `${month}/${day}/${year}`;
+}
+
+                            function myFunc(x){
+                              res=document.getElementById('mainDept');
+                              var d = new Date(res.value);
+                              d.setDate(d.getDate()+x-2)
+                              
+                              document.getElementById('hiddenDept').value=formattedDate(d);
+                              return '{{dates.3 | date:"d-m-Y"}}'
+                            }
+                          </script>
+                
+                          <div class="col-lg-2">
+                            <a href="#" onclick="myFunc(3);document.getElementById('submitDateForm').click()">
+                                <div class="card mb-5 mb-lg-0">
+                                  <div class="card-body">
+                                    <h5 class="card-title text-muted text-uppercase text-center">{{dates.3.date}}</h5>
+                                    <h6 class="card-price text-center">{{prices.3}}</h6>
+                                    
+                                   
+                                  </div>
+                                </div>
+                                </a>
+                              </div>
+
+                            
+                              <div class="col-lg-2">
+                                  <a href="#" onclick="myFunc(4);document.getElementById('submitDateForm').click()">
+                                    <div class="card mb-5 mb-lg-0">
+                                      <div class="card-body">
+                                        <h5 class="card-title text-muted text-uppercase text-center">{{dates.4.date}}</h5>
+                                        <h6 class="card-price text-center">{{prices.4}}</h6>
+                                        
+                                       
+                                      </div>
+                                    </div>
+                                    </a>
+                                  </div>
+                <!-- Pro Tier -->
+                <div class="col-lg-2">
+                    <a href="#" onclick="myFunc(5);document.getElementById('submitDateForm').click()">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{{dates.5.date}}</h5>
+                      <h6 class="card-price text-center">{{prices.5}}</h6>
+                     
+                     
+                        
+                    </div>
+                  </div>
+                  </a>
+                </div>
+              </div>
+
+
+              <input type='submit' style="display: none" id='submitDateForm'>
+            </form>
+            </div>
+          </section>
+
+          
+
+
+
+
+<!-- Filtering -->
+<br>
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-3 sidebar order-md-last ftco-animate">
+                    <div class="sidebar-wrap ftco-animate">
+                      <form action="{% url 'filter_trains' %}" method="GET">
+                          <input type='hidden' name='origin' value="{{origin}}">
+                          <input type='hidden' name='dest' value="{{dest}}">
+                          <input style="display: none" class="form-control checkin_date" type='text' value="{{dept}}" name='dept'>
+                          <input type='hidden' name='passengers' value="{{passengers}}">
+                          
+                           
+                        
+                          <div class="form-group">
+                            <div class="select-wrap one-third">
+                            
+                            <select name="sort" id="sortSelect" class="form-control">
+                              <option value="" >Sort By:</option>
+                              <option value="price" >Price (Low to High)</option>
+                              <option value="-price">Price (High to Low)</option>
+                              
+                            </select>
+                          </div>
+                          </div>
+
+                          <div class="form-group">
+                                <div class="select-wrap one-third">
+                                
+                                <select name="deptTime" id="deptSelect" class="form-control" placeholder="Keyword search">
+                                  <option value="">Departure Time:</option>
+                                  <option value="0">12AM-6AM</option>
+                                  <option value="1">6AM-12PM</option>
+                                  <option value="2">12PM-8PM</option>
+                                  <option value="3">8PM-12AM</option>
+                                  
+
+
+                                  
+                                </select>
+                              </div>
+                              </div>
+
+                              <div class="form-group">
+                                    <div class="select-wrap one-third">
+                                    
+                                    <select name="arrivalTime" id="arrivalSelect" class="form-control" placeholder="Keyword search">
+                                      <option value="">Arrival Time:</option>
+                                      <option value="0">12AM-6AM</option>
+                                      <option value="1">6AM-12PM</option>
+                                      <option value="2">12PM-8PM</option>
+                                      <option value="3">8PM-12AM</option>
+                                      
+                                    </select>
+                                  </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                        <div class="select-wrap one-third">
+                                        
+                                        <select name="class" id="classSelect" class="form-control" placeholder="Keyword search">
+                                          <option value="">Class</option>
+                                          <option value="First Class">First Class</option>
+                                          <option value="Business">Business</option>
+                                          <option value="Economy">Economy</option>
+                                          
+                                          
+                                        </select>
+                                      </div>
+                                      </div>
+                         
+                          <div class="form-group">
+                            <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                          </div>
+                          </form>
+                        </div>
+                    
+                    </div>
+                    
+
+
+
+
+
+
+
+
+
+
+
+                    <script>
+                        var air = document.getElementById('airlineSelect');
+                        for(var i=0;i<air.options.length;i++){
+                          //alert('{{airline}}')
+                          if(air.options[i].value=='{{airline}}'){
+                            air.options[i].selected = true
+                          }
+                        }
+
+                        air = document.getElementById('sortSelect');
+                        for(var i=0;i<air.options.length;i++){
+                          //alert('{{sort}}')
+                          if(air.options[i].value=='{{sort}}'){
+                            air.options[i].selected = true
+                          }
+                        }
+
+                        air = document.getElementById('deptSelect');
+                        for(var i=0;i<air.options.length;i++){
+                          //alert('{{sort}}')
+                          if(air.options[i].value=='{{deptTime}}'){
+                            air.options[i].selected = true
+                          }
+                        }
+
+                        air = document.getElementById('arrivalSelect');
+                        for(var i=0;i<air.options.length;i++){
+                          //alert('{{sort}}')
+                          if(air.options[i].value=='{{arrivalTime}}'){
+                            air.options[i].selected = true
+                          }
+                        }
+
+                        air = document.getElementById('classSelect');
+                        for(var i=0;i<air.options.length;i++){
+                          //alert('{{sort}}')
+                          if(air.options[i].value=='{{class}}'){
+                            air.options[i].selected = true
+                          }
+                        }
+
+                        
+                      </script>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="col-lg-9">
+                        <div class="row">
+          
+                            {% for train in train_list %}
+                                <div class="card">
+                                        <div class="card-body">
+                                            <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/SG.png?v=4" alt="logo" height="100%" width="50px" >
+                                          {{train.train_name}}  &nbsp
+                                          <span class="bg-primary">Departure Time: &nbsp </span>   &nbsp  &nbsp  &nbsp
+                                          <span class="bg-dark text-light">Duration: &nbsp </span>  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp   &nbsp   &nbsp
+                                          <span class="bg-danger text-light">Arrival Time: &nbsp </span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp  &nbsp 
+                                          Price:&nbsp   &nbsp 
+                                          <form method="POST" action="/myapp/booking/" class="form-group">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="train_id" value="{{ train.pk }}">
+                                            <button type="submit" class="btn btn-success">Book</button>
+                                        </form>
+          
+          
+          
+                                          <br>
+                                        (Train code) &nbsp &nbsp &nbsp <span class="text-primary"> {{train.deptTime}} {{train.origin}} </span>
+                                        &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp
+                                        {{train.duration}} hours
+                                          &nbsp &nbsp  &nbsp  &nbsp
+                                        <span class="text-danger">{{train.arrivalTime}} {{train.dest}}</span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  
+                                        <span class="text-dark">${{train.price}}</span>
+                                        </div>
+                                      </div>
+          
+                                  {% endfor %}
+          
+                        </div>
+                    </div>
+                
+                
+                            
+                </div>
+                    
+                                
+                    </div>
+
+                    
+                    </div>
+
+
+                    
+        <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{% static 'myapp/js/jquery.min.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'myapp/js/popper.min.js' %}"></script>
+  <script src="{% static 'myapp/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'myapp/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'myapp/js/aos.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'myapp/js/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'myapp/js/jquery.timepicker.min.js' %}"></script>
+  <script src="{% static 'myapp/js/scrollax.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{% static 'myapp/js/google-map.js' %}"></script>
+  <script src="{% static 'myapp/js/main.js' %}"></script>
+
+  </body>
+</html>
+
+<style>
+.pricing .card {
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.pricing hr {
+  margin: .5rem 0;
+}
+
+.pricing .card-title {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+}
+
+.pricing .card-price {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.pricing .card-price .period {
+  font-size: 0.8rem;
+}
+
+.pricing ul li {
+  margin-bottom: 1rem;
+}
+
+.pricing .text-muted {
+  opacity: 0.7;
+}
+
+.pricing .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  opacity: 0.7;
+  transition: all 0.2s;
+}
+
+/* Hover Effects on Card */
+
+@media (min-width: 992px) {
+  .pricing .card:hover {
+    margin-top: -.25rem;
+    margin-bottom: .25rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+    background: #08c29a;
+  }
+  .pricing .card:hover .btn {
+    opacity: 1;
+  }
+}
+</style>

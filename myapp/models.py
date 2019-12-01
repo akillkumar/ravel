@@ -36,15 +36,18 @@ class Flight (models.Model):
 		return self.flight_name
 
 class Trains (models.Model):
-	train_name = models.CharField (max_length = 10, default = "")
+	train_name = models.CharField (max_length = 30, default = "")
 	train_number = models.IntegerField (unique = True, default = 00)
 
 	origin = models.CharField (max_length = 4, default = "")
 	dest = models.CharField (max_length = 4, default = "")
 	
 	duration = models.FloatField (default=0.0)
-	dept = models.DateTimeField (auto_now = False, default=default_start_time)
-	arrival = models.DateTimeField (auto_now = False, default=default_start_time)
+	dept = models.DateField (auto_now = False, default=default_start_date)
+	arrival = models.DateField (auto_now = False, default=default_start_date)
+	
+	deptTime = models.TimeField (auto_now = False, default=default_start_time)
+	arrivalTime = models.TimeField (auto_now = False, default=default_start_time)
 	
 	train_class = models.CharField (max_length = 20, default = "")
 	seats = models.IntegerField (default = 0)
