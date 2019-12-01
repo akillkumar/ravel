@@ -33,10 +33,12 @@ def myFunc (request):
 def filter_flights (request):
 	global myVar
 	if request.method=='GET':
-		origin=request.GET.get('origin','')
-		dest = request.GET.get('dest','')
+		origin=request.GET.get('origin','')[0:3]
+		dest = request.GET.get('dest','')[0:3]
 		dept = request.GET.get('dept','')
 		res = datetime.strptime(dept,'%m/%d/%Y')
+		print('RESSSSSSSSSSSSSS')
+		print(res.day)
 		dates = {}
 		myVar +=1
 		print('my var = ', myVar)
@@ -276,6 +278,7 @@ def filter_trains (request):
 			'class':tclass,
 			'prices':prices
 		})
+
 
 
 
