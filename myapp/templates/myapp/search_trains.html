@@ -40,14 +40,14 @@
             
         
             <li class="nav-item dropdown list-unstyled">
-                    <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link py-0" href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       From
                       <br>
                       <input name="origin" value="{{origin}}" placeholder="Any" class="alert alert-secondary" role="alert">
                       
                   
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownT">
                       <a class="dropdown-item" href="#">Delhi</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Sonipat</a>
@@ -57,13 +57,13 @@
                   </li>
 
                   <li class="nav-item dropdown list-unstyled">
-                        <a class="nav-link py-0 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link py-0 " href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           To
                           <br>
                           <input name="dest" value="{{dest}}" placeholder="Any" class="alert alert-secondary" role="alert">
                       
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownT">
                           <a class="dropdown-item" href="#">Delhi</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">Sonipat</a>
@@ -74,7 +74,7 @@
 
 
                       <li class="nav-item dropdown list-unstyled">
-                            <a class="nav-link py-0 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link py-0 " href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Departure Date:
                             </a>
                             <div class="form-group">
@@ -87,7 +87,7 @@
                           </li>
 
                           <li class="nav-item dropdown list-unstyled">
-                                <a class="nav-link py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link py-0" href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Number Of Passengers:
                                   <br>
                                   <input name="passengers" style="width: 240px" type="number" min="1" value="{{passengers}}" class="alert alert-secondary" role="alert">
@@ -263,7 +263,7 @@ function formattedDate(d = new Date) {
                           <div class="form-group">
                             <div class="select-wrap one-third">
                             
-                            <select name="sort" id="sortSelect" class="form-control">
+                            <select name="sort" id="sortSelectT" class="form-control">
                               <option value="" >Sort By:</option>
                               <option value="price" >Price (Low to High)</option>
                               <option value="-price">Price (High to Low)</option>
@@ -275,7 +275,7 @@ function formattedDate(d = new Date) {
                           <div class="form-group">
                                 <div class="select-wrap one-third">
                                 
-                                <select name="deptTime" id="deptSelect" class="form-control" placeholder="Keyword search">
+                                <select name="deptTime" id="deptSelectT" class="form-control" placeholder="Keyword search">
                                   <option value="">Departure Time:</option>
                                   <option value="0">12AM-6AM</option>
                                   <option value="1">6AM-12PM</option>
@@ -306,7 +306,7 @@ function formattedDate(d = new Date) {
                                   <div class="form-group">
                                         <div class="select-wrap one-third">
                                         
-                                        <select name="class" id="classSelect" class="form-control" placeholder="Keyword search">
+                                        <select name="class" id="classSelectT" class="form-control" placeholder="Keyword search">
                                           <option value="">Class</option>
                                           <option value="First Class">First Class</option>
                                           <option value="Business">Business</option>
@@ -337,15 +337,7 @@ function formattedDate(d = new Date) {
 
 
                     <script>
-                        var air = document.getElementById('airlineSelect');
-                        for(var i=0;i<air.options.length;i++){
-                          //alert('{{airline}}')
-                          if(air.options[i].value=='{{airline}}'){
-                            air.options[i].selected = true
-                          }
-                        }
-
-                        air = document.getElementById('sortSelect');
+                        var air = document.getElementById('sortSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{sort}}'){
@@ -353,7 +345,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('deptSelect');
+                        air = document.getElementById('deptSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{deptTime}}'){
@@ -361,7 +353,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('arrivalSelect');
+                        air = document.getElementById('arrivalSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{arrivalTime}}'){
@@ -369,7 +361,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('classSelect');
+                        air = document.getElementById('classSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{class}}'){
