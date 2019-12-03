@@ -13,9 +13,13 @@ myVar=0
 def index (request):
 	return render (request, 'myapp/index.html', {})
 
-def details (request, flight_id):
+def flight_details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
-	return render(request, 'myapp/details.html', {'flight' : flight})
+	return render(request, 'myapp/flight_details.html', {'flight' : flight})
+
+def train_details (request, train_id):
+	train = get_object_or_404 (Trains, pk = train_id)
+	return render(request, 'myapp/train_details.html', {'train' : train})
 
 def places (request):
 	if request.method=='GET':
@@ -308,9 +312,6 @@ def filter_trains (request):
 		})
 
 
-
-
-
 def  book_flight (request):
 	if request.method == "POST":
 		flight_id = request.POST.get('flight_id', '')
@@ -319,10 +320,23 @@ def  book_flight (request):
 	flight = get_object_or_404 (Flight, pk = flight_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
+	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk, price = flight.price)
 	b.save()
 
-	return render (request, 'myapp/booking.html', {'flight': flight})
+	return render (request, 'myapp/flight_booking.html', {'flight': flight})
+
+
+def  book_train (request):
+	if request.method == "POST":
+		train_id = request.POST.get('train_id', '')
+	
+	train = get_object_or_404 (Trains, pk = train_id)
+
+	# Add entry
+	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, price = train.price)
+	b.save()
+
+	return render (request, 'myapp/train_booking.html', {'train': train})
 
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)

@@ -8,6 +8,7 @@ def default_start_time():
     now = datetime.now()
     start = now.replace(hour=22, minute=0, second=0, microsecond=0)
     return start if start > now else start + timedelta(days=1) 
+
 def default_start_date():
     now = datetime.now().date
     
@@ -108,7 +109,10 @@ class Bookings (models.Model):
 	booking_type = models.CharField (max_length=8, default="")
 	booking_name = models.CharField (max_length = 50, default = "")
 	key = models.IntegerField ()
-	timestamp = models.DateTimeField (auto_now = True)
+
+	timestamp = models.DateTimeField (auto_now = False, default=default_start_time)
+	
+	travellers = models.IntegerField (default = 1)
 	price = models.FloatField (default = 0.0)
 	
 	def __str__(self):

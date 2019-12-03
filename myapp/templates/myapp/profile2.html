@@ -108,6 +108,7 @@
                                             <th>Booking Brief</th>
                                             <th>Booking ID</th>
                                             <th>Booking Date</th>
+                                            <th>Travellers</th>
                                             <th>Price</th>
 
                                           </tr>
@@ -119,7 +120,8 @@
                                                     <td>{{ booking.booking_name }}</td>
                                                     <td>B00{{ user.pk }}0{{ booking.key }}{{ booking.pk }}</td>
                                                     <td>{{ booking.timestaamp}}</td>
-                                                    <td>${{ booking.price}}</td>
+                                                    <td>{{ booking.travellers }}</td>
+                                                    <td>${{ booking.price }}</td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>

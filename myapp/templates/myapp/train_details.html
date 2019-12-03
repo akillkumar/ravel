@@ -1,0 +1,19 @@
+{% extends 'myapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
+    <h1>{{ train.train_name }}</h1>
+    <ul>
+        <li>{{ train.train_number }}</li>
+        <li>{{ train.origin }}</li>
+        <li>{{ train.dest }}</li>
+    </ul>
+
+    <form method="POST" action="/myapp/train_booking/" class="form-group">
+        {% csrf_token %}
+        <input type="hidden" name="train_id" value="{{ train.pk }}">
+        <button type="submit" class="btn btn-success">Book</button>
+    </form>
+{% endblock %}
