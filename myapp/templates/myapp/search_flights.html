@@ -405,7 +405,7 @@ function formattedDate(d = new Date) {
                                           <span class="bg-dark text-light">Duration: &nbsp </span>  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp   &nbsp   &nbsp
                                           <span class="bg-danger text-light">Arrival Time: &nbsp </span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp  &nbsp 
                                           Price:&nbsp   &nbsp 
-                                          <form method="POST" action="/myapp/booking/" class="form-group">
+                                          <form method="POST" action="/myapp/flight_booking/" class="form-group">
                                             {% csrf_token %}
                                             <input type="hidden" name="flight_id" value="{{ flight.pk }}">
                                             <button type="submit" class="btn btn-success">Book</button>

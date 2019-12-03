@@ -83,8 +83,6 @@ def places (request):
 		checkout = request.GET.get('checkout','')
 		res2 = datetime.strptime(checkout,'%m/%d/%Y')
 
-		print((res2-res1).days)
-
 		hotel_list = Hotel.objects.filter(hotel_city__icontains = city, price__gte = priceLow, price__lte = priceHigh)
 		return render (request, 'myapp/places.html', 
 			context={
@@ -108,7 +106,20 @@ def train_details (request, train_id):
 def hotel_details (request, hotel_id):
 	if request.method=='GET':
 		hotel = get_object_or_404 (Hotel,pk=hotel_id)
-		return render (request, 'myapp/hotel-single.html',{'hotel':hotel})
+		reviews = Hotel_Ratings.objects.filter(hotel=hotel_id)
+
+		loc = hotel.hotel_city
+		recs = Hotel.objects.filter(hotel_city = loc).order_by('hotel_rating')[0:3]
+		res = {}
+		for x in range(len(recs)):
+			res[x] = recs[x]
+
+		return render (request, 'myapp/hotel-single.html',
+						{'hotel':hotel,
+						'reviews':reviews,
+						'ratingRangeFull':range(int(hotel.hotel_rating)),
+						'ratingRangeEmpty':range(5-int(hotel.hotel_rating)),
+						'recs':recs})
 
 def add_review (request):
 	if request.method=='POST':
