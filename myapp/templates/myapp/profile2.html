@@ -1,0 +1,158 @@
+{% extends 'myapp/base.html '%}
+{% block title %}
+    {{ user.username }} | Profile
+{% endblock %}
+
+{% block content %}
+  <head>
+		{%load static%}
+        {% load crispy_forms_tags %}
+
+        <link rel="stylesheet" href="{%static 'myapp/css/profile.css' %}">
+   
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+<div class="profileboy">
+
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <input type="file" name="file"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                                <h5>
+                                    Hello, {{ user.first_name }}!
+                                </h5>
+                                <h6>
+                                    Ravelo Server Design and retired playboy
+                                </h6>
+                               
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Previous Bookings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        
+                        <a href="">Billing Addresss</a><br/>
+                        <a href="">Privacy</a><br/>
+                        <a href="">Recommended Packages</a>
+                        
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>User Id</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{ user.username }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{ user.first_name }} {{ user.last_name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{user.email}} </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>123 456 7890</p>
+                                        </div>
+                                    </div>
+                                    
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <table class="table table-hover">
+                                        <thead>
+                                          <tr>
+                                            <th>Booking Type</th>
+                                            <th>Booking Brief</th>
+                                            <th>Booking ID</th>
+                                            <th>Booking Date</th>
+                                            <th>Price</th>
+
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for booking in booking_list %}
+                                                <tr>
+                                                    <td>{{ booking.booking_type }}</td>
+                                                    <td>{{ booking.booking_name }}</td>
+                                                    <td>B00{{ user.pk }}0{{ booking.key }}{{ booking.pk }}</td>
+                                                    <td>{{ booking.timestaamp}}</td>
+                                                    <td>${{ booking.price}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>           
+    </div>
+</div>
+
+
+<script src="{% static 'myapp/js/jquery.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'myapp/js/popper.min.js' %}"></script>
+<script src="{% static 'myapp/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'myapp/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'myapp/js/aos.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'myapp/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.timepicker.min.js' %}"></script>
+<script src="{% static 'myapp/js/scrollax.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{% static 'myapp/js/google-map.js' %}"></script>
+<script src="{% static 'myapp/js/main.js' %}"></script>
+</body>
+
+
+{% endblock %}
+</html>

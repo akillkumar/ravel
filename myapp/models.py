@@ -105,7 +105,10 @@ class Hotel (models.Model):
 class Bookings (models.Model):
 	user = models.ForeignKey (User, on_delete = models.CASCADE, related_name="userboi", null = True)
 	booking_type = models.CharField (max_length=8, default="")
+	booking_name = models.CharField (max_length = 50, default = "")
 	key = models.IntegerField ()
 	timestamp = models.DateTimeField (auto_now = True)
 	price = models.FloatField (default = 0.0)
 	
+	def __str__(self):
+		return self.booking_name

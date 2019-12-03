@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		{%load static%}
+		
+{% load crispy_forms_tags %}
+    <title>Ravel | Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{%static 'myapp/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{%static 'myapp/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{%static 'myapp/css/profile.css' %}">
+   
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+<div class="profileboy">
+
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <input type="file" name="file"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                                <h5>
+                                    Akhil Kumar
+                                </h5>
+                                <h6>
+                                    Ravelo Server Design and retired playboy
+                                </h6>
+                               
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        
+                        <a href="">Billing Addresss</a><br/>
+                        <a href="">Privacy</a><br/>
+                        <a href="">Recommended Packages</a>
+                        
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>User Id</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="userid">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <input type="text" name="name">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <input type="text" name="email">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <input type="text" name="phone">
+                                        </div>
+
+                                        
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Password</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                    <input type="password" name="password">
+                                            </div>
+    
+                                            
+                                     </div>
+                                     <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Confirm Password</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                    <input type="password" name="confirmpassword">
+                                            </div>
+    
+                                            
+                                     </div>
+                                    
+                        </div>
+                        
+                </div>
+            </div>
+        </form>           
+    </div>
+</div>
+
+
+<script src="{% static 'myapp/js/jquery.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'myapp/js/popper.min.js' %}"></script>
+<script src="{% static 'myapp/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'myapp/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'myapp/js/aos.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'myapp/js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'myapp/js/jquery.timepicker.min.js' %}"></script>
+<script src="{% static 'myapp/js/scrollax.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{% static 'myapp/js/google-map.js' %}"></script>
+<script src="{% static 'myapp/js/main.js' %}"></script>
+
+</body>
+</html>

@@ -319,11 +319,11 @@ def  book_flight (request):
 	flight = get_object_or_404 (Flight, pk = flight_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Flight', key=flight.pk)
+	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
 	b.save()
 
 	return render (request, 'myapp/booking.html', {'flight': flight})
 
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)
-	return render (request, 'myapp/profile.html', {'user': request.user, 'booking_list': booking_list})
+	return render (request, 'myapp/profile2.html', {'user': request.user, 'booking_list': booking_list})
