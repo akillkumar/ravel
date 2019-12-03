@@ -603,16 +603,53 @@
     							<div class="one">
 		    						<h3><a href="#">{{h.hotel_name}}</a></h3>
 		    						<p class="rate">
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star-o"></i>
-		    							<span>8 Rating</span>
+												{% if h.hotel_rating == 0 %}
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												{% endif %}
+												{% if h.hotel_rating == 1 %}
+												<i class="icon-star"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												{% endif %}
+												{% if h.hotel_rating == 2 %}
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												{% endif %}
+												{% if h.hotel_rating == 3 %}
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star-o"></i>
+												<i class="icon-star-o"></i>
+												{% endif %}
+												{% if h.hotel_rating == 4 %}
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star-o"></i>
+												{% endif %}
+												{% if h.hotel_rating == 5 %}
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												{% endif %}
+												<span>{{h.hotel_rating}} Rating</span>
 		    						</p>
 	    						</div>
 	    						<div class="two">
-	    							<span class="price per-price">{{h.price}}<br><small>/night</small></span>
+	    							<span class="price per-price">₹{{h.price}}<br><small>/night</small></span>
     							</div>
     						</div>
     						<p>{{h.hotel_description}}</p>
