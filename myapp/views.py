@@ -490,7 +490,7 @@ def  book_flight (request):
 	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk, travellers = passengers, price=int(passengers)*flight.price)
 	b.save()
 
-	return render (request, 'myapp/flight_booking.html', {'flight': flight})
+	return render (request, 'myapp/flight_booking.html', {'flight': flight, 'booking': b})
 
 def  book_train (request):
 	if request.method == "POST":
@@ -503,7 +503,7 @@ def  book_train (request):
 	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, travellers = passengers, price=int(passengers)*train.price)
 	b.save()
 
-	return render (request, 'myapp/train_booking.html', {'train': train})
+	return render (request, 'myapp/train_booking.html', {'train': train, 'booking': b})
 
 
 
@@ -517,7 +517,7 @@ def  book_hotel (request):
 	b = Bookings (user=request.user, booking_type='Hotel', booking_name=hotel.hotel_name+ " " + request.user.username , key=hotel.pk, price = hotel.price)
 	b.save()
 
-	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel})
+	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel, 'booking': b})
 
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)

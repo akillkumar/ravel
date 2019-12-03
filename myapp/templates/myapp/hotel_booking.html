@@ -8,5 +8,69 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Your {{ hotel.hotel_name }} booking has been confirmed!</h1>
+    <div class="container">
+        <h1>Your {{ hotel.hotel_name }} booking has been confirmed!</h1>
+        <span>Thank you for choosing Ravel!</span>
+    </div>
+
+    <div class="container">
+            <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ user.first_name }} {{ user.last_name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>UserID</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ user.username }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{user.email}} </p>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <label>Booking Type</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ booking.type } </p>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <label>Booking ID</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> B00{{ user.pk }}0{{ booking.key }}{{ booking.pk }} </p>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <label>Booking Time</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ booking.timestamp } </p>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
+                            <label>Grand Total</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ booking.price } </p>
+                        </div>
+                </div>
+
+    </div>
+
 {% endblock %}
