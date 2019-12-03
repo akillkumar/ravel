@@ -68,6 +68,8 @@ def index (request):
 	trec2['numTrains'] = Trains.objects.filter(dest=trec2['location']).count()
 	trec2['minPrice'] = Trains.objects.filter(dest=trec2['location']).order_by('price')[0:3]
 
+	hots = Hotel.objects.all().order_by('-hotel_rating')[0:5]
+
 
 
 
@@ -114,6 +116,7 @@ def index (request):
 			'frec2': frec2,
 			'trec1': trec1,
 			'trec2': trec2,
+			'hots':hots
 
 		})
 	else:
