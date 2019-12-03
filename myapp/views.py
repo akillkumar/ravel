@@ -110,6 +110,8 @@ def hotel_details (request, hotel_id):
 
 		loc = hotel.hotel_city
 		recs = Hotel.objects.filter(hotel_city = loc).order_by('hotel_rating')[0:3]
+		print('RECSSSSSSSSSSS')
+		print(recs)
 		res = {}
 		for x in range(len(recs)):
 			res[x] = recs[x]
