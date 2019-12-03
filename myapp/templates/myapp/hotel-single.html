@@ -66,16 +66,18 @@
         				<div class="fields">
 									<p>Check-in Date</p>
 		              <div class="form-group">
-		                <input type="text" class="form-control checkin_date" placeholder="Date from">
+		                <input type="text" id="bookCheckin" onchange="getCost()" value="12/27/2019" class="form-control checkin_date" placeholder="Date from">
 									</div>
 									<p>Check-in Date</p>
 		              <div class="form-group">
-		                <input type="text" class="form-control checkin_date" placeholder="Date to">
+		                <input type="text" id="bookCheckout" onchange="getCost()" value="12/28/2019" class="form-control checkin_date" placeholder="Date to">
 									</div>
 									<p>Number of guests ({{hotel.guests_per_room}} per room)</p>
 									<div class="form-group">
-											<input type="number" class="form-control" value="1" min="1">
+											<input type="number" id="bookGuests" onchange="getCost()" class="form-control" value="1" min="1">
 										</div>
+										<p>Total cost: <strong id="totalCost">₹ {{hotel.price}}</strong></p>
+
 		              <div class="form-group">
 		                <input type="submit" value="Book" class="btn btn-primary py-3 px-5">
 		              </div>
@@ -341,3 +343,29 @@
   <script src="{% static 'myapp/js/main.js' %}"></script>
   </body>
 </html>
+
+
+<script>
+
+function getCost(){
+	let guests = document.getElementById('bookGuests').value;
+	let gpr = '{{hotel.guests_per_room}}'
+
+	checkin = document.getElementById('bookCheckin').value
+
+	d1 = new Date(checkin)
+	checkout = document.getElementById('bookCheckout').value
+	d2 = new Date(checkout)
+
+
+	var i;
+	for(i=1;;i++){
+		if(gpr*(i)<guests)
+			continue
+		else
+			break
+	}
+	document.getElementById('totalCost').innerHTML = '₹ '+i*parseFloat('{{hotel.price}}')*(d2.getDate()-d1.getDate())
+}
+
+</script>
