@@ -503,6 +503,20 @@ def  book_train (request):
 
 	return render (request, 'myapp/train_booking.html', {'train': train})
 
+
+
+def  book_hotel (request):
+	if request.method == "POST":
+		hotel_id = request.POST.get('hotel_id', '')
+	
+	hotel = get_object_or_404 (Hotel, pk = hotel_id)
+
+	# Add entry
+	b = Bookings (user=request.user, booking_type='Hotel', booking_name=hotel.hotel_name+ " " + request.user.username , key=hotel.pk, price = hotel.price)
+	b.save()
+
+	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel})
+
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)
 	return render (request, 'myapp/profile.html', {'user': request.user, 'booking_list': booking_list})

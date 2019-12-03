@@ -10,16 +10,18 @@ Login Here
 {% endblock %}
 
 {% load crispy_forms_tags %}
-
+    
 {% block content %}
     <form method="POST" class="form-group">
         {% csrf_token %}
         {{form | crispy}}
-        <p>Don't have an account? Create one <a href="/register/register.html">here</a> </p>
+        <p>Don't have an account? Create one <a href="/register">here</a> </p>
         <button type="submit" class="btn btn-success">Login</button>
+        
         <a href="{% provider_login_url 'google' %} " class="btn-google m-b-10 ml-3">
             <img src="{% static 'myapp/images/icon-google.png'%}" alt="GOOGLE">
             Google
           </a>
+
     </form>
 {% endblock %}
