@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 
+
 # Some defaults
 def default_start_time():
     now = datetime.now()
@@ -112,3 +113,10 @@ class Bookings (models.Model):
 	
 	def __str__(self):
 		return self.booking_name
+
+class Hotel_Ratings (models.Model):
+
+	user = models.ForeignKey (User, on_delete = models.CASCADE, null = True)
+	hotel =  models.ForeignKey (Hotel, on_delete = models.CASCADE, null = True)
+	rating = models.IntegerField ()
+	review = models.CharField (max_length = 500, default="")
