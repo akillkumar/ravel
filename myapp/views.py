@@ -481,12 +481,13 @@ def filter_trains (request):
 def  book_flight (request):
 	if request.method == "POST":
 		flight_id = request.POST.get('flight_id', '')
-		print ('my flight id is - ',flight_id)
+		passengers = request.POST.get('passengers', '')
 	
 	flight = get_object_or_404 (Flight, pk = flight_id)
+	print (passengers)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
+	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk, travellers = passengers, price=int(passengers)*flight.price)
 	b.save()
 
 	return render (request, 'myapp/flight_booking.html', {'flight': flight})
@@ -494,11 +495,12 @@ def  book_flight (request):
 def  book_train (request):
 	if request.method == "POST":
 		train_id = request.POST.get('train_id', '')
+		passengers = request.POST.get('passengers', '')
 	
 	train = get_object_or_404 (Trains, pk = train_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, price = train.price)
+	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, travellers = passengers, price=int(passengers)*train.price)
 	b.save()
 
 	return render (request, 'myapp/train_booking.html', {'train': train})
