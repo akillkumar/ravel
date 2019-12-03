@@ -11,7 +11,7 @@
         <li>{{ train.dest }}</li>
     </ul>
 
-    <form method="POST" action="/myapp/train_booking/" class="form-group">
+    <form method="POST" action="/train_booking/" class="form-group">
         {% csrf_token %}
         <input type="hidden" name="train_id" value="{{ train.pk }}">
         <button type="submit" class="btn btn-success">Book</button>

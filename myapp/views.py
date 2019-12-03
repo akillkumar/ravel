@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.models import User
+from collections import Counter
 
 from .models import Flight, Trains, Buses, Hotel, Bookings, Hotel_Ratings
 
@@ -10,13 +11,55 @@ import datetime as dt
 
 myVar=0
 
+def most_frequent(List): 
+	occurence_count = Counter(List)
+	if occurence_count:
+		return occurence_count.most_common(1)[0][0]
+	else:
+		return -1
+
 def index (request):
-	#----getting popular destinations
+	context = {}
+	flag = True
+	if request.user.is_authenticated:
+		bookings = Bookings.objects.filter (user=request.user)
 
+		flight_dest_list = []
+		train_dest_list = []
 
+		flight_origin_list = []
+		train_origin_list = []
 
-	#----------
-	return render (request, 'myapp/index.html', {})
+		for b in bookings:
+			if b.booking_type == "Flight":
+				obj = get_object_or_404 (Flight, pk = b.key)
+				flight_dest_list.append(obj.dest)
+				flight_origin_list.append(obj.origin)
+			
+			if b.booking_type == "Train":
+				obj = get_object_or_404 (Trains, pk = b.key)
+				train_dest_list.append(obj.dest)
+				train_origin_list.append(obj.origin)
+
+		hotel_list = Hotel.objects.filter (hotel_city=most_frequent(flight_origin_list))
+		if hotel_list:
+			h = hotel_list.order_by('hotel_rating')[0]
+		else:
+			h = "Aight"
+
+		if most_frequent(flight_origin_list) == -1 and most_frequent(train_origin_list) == -1:
+			flag = False
+		
+		return render (request, 'myapp/index.html', {
+			'flag': True,
+			'hotel': h,
+			'flight_origin': most_frequent(flight_origin_list),
+			'flight_dest': most_frequent(flight_dest_list),
+			'train_origin':  most_frequent(train_origin_list),
+			'train_dest':  most_frequent(train_dest_list),
+		})
+	else:
+		return render (request, 'myapp/index.html', {})
 
 def details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
@@ -361,10 +404,6 @@ def filter_trains (request):
 			'prices':prices
 		})
 
-
-
-
-
 def  book_flight (request):
 	if request.method == "POST":
 		flight_id = request.POST.get('flight_id', '')
@@ -376,7 +415,7 @@ def  book_flight (request):
 	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
 	b.save()
 
-	return render (request, 'myapp/booking.html', {'flight': flight})
+	return render (request, 'myapp/flight_booking.html', {'flight': flight})
 
 def  book_train (request):
 	if request.method == "POST":
@@ -392,4 +431,4 @@ def  book_train (request):
 
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)
-	return render (request, 'myapp/profile2.html', {'user': request.user, 'booking_list': booking_list})
+	return render (request, 'myapp/profile.html', {'user': request.user, 'booking_list': booking_list})
