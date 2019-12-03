@@ -9,6 +9,8 @@ from .models import Flight, Trains, Buses, Hotel, Bookings, Hotel_Ratings
 from datetime import date,datetime
 import datetime as dt
 
+import operator
+
 myVar=0
 
 def most_frequent(List): 
@@ -18,8 +20,59 @@ def most_frequent(List):
 	else:
 		return -1
 
+cityCodes = {'AGX': 'Agatti Island', 'AMD': 'Ahmedabad', 'AJL': 'Aizawl', 'AKD': 'Akola', 'IXV': 'Along', 'LKO': 'Lucknow', 'LUH': 'Ludhiana', 'IXB': 'Bagdogra', 'IXE': 'Mangalore', 'IXL': 'Leh', 'RGH': 'Balurghat', 'IXD': 'Allahabad', 'SHL': 'Shillong', 'BEK': 'Bareli', 'BEP': 'Bellary', 'BLR': 'Bangalore', 'BUP': 'Bhatinda', 'BHU': 'Bhavnagar', 'BHO': 'Bhopal', 'BBI': 'Bhubaneswar', 'BKB': 'Bikaner', 'PAB': 'Bilaspur', 'IXR': 'Ranchi', 'GAU': 'Guwahati', 'CBD': 'Car Nicobar', 'IXC': 'Chandigarh', 'MAA': 'Chennai', 'BOM': 'Mumbai', 'IXU': 'Aurangabad', 'COK': 'Kochi', 'COH': 'Cooch Behar', 'CDP': 'Cuddapah', 'UDR': 'Udaipur', 'GOI': 'Goa', 'NMB': 'Daman', 'DAE': 'Daparizo', 'DAI': 'Darjeeling', 'DED': 'Dehra Dun', 'DEP': 'Deparizo', 'IDR': 'Indore', 'DBD': 'Dhanbad', 'DIB': 'Dibrugarh', 'DMU': 'Dimapur', 'DIU': 'Diu', 'DHM': 'Dharamsala', 'ISK': 'Nasik', 'GAY': 'Gaya', 'GOP': 'Gorakhpur', 'JGA': 'Jamnagar', 'GUX': 'Guna', 'GWL': 'Gwalior', 'HSS': 'Hissar', 'HBX': 'Hubli', 'HYD': 'Hyderabad', 'DEL': 'New Delhi', 'JLR': 'Jabalpur', 'JGB': 'Jagdalpur', 'JSA': 'Jaisalmer', 'PYB': 'Jeypore', 'JDH': 'Jodhpur', 'IXH': 'Kailashahar', 'IXQ': 'Kamalpur', 'IXY': 'Kandla', 'KNU': 'Kanpur', 'IXK': 'Keshod', 'HJR': 'Khajuraho', 'AGR': 'Agra', 'IXN': 'Khowai', 'KLH': 'Kolhapur', 'KTU': 'Kota', 'CCJ': 'Kozhikode', 'KUU': 'Bhuntar Kullu.', 'IXS': 'Silchar', 'IXI': 'Lilabari', 'PNQ': 'Pune', 'IXM': 'Madurai', 'LDA': 'Malda', 'MOH': 'Mohanbari', 'IMF': 'Imphal', 'MZA': 'Muzaffarnagar', 'MZU': 'Muzaffarpur', 'MYQ': 'Mysore', 'NDC': 'Nanded', 'CCU': 'Kolkata', 'NVY': 'Neyveli', 'OMN': 'Osmanabad', 'PGH': 'Pantnagar', 'IXT': 'Pasighat', 'IXP': 'Pathankot', 'PAT': 'Patna', 'CJB': 'Coimbatore', 'PNY': 'Pondicherry', 'PBD': 'Porbandar', 'IXZ': 'Port Blair', 'PUT': 'Puttaparthi', 'RPR': 'Raipur', 'ATQ': 'Amritsar', 'RJA': 'Rajahmundry', 'RAJ': 'Rajkot', 'RJI': 'Rajouri', 'RMD': 'Ramagundam', 'RTC': 'Ratnagiri', 'REW': 'Rewa', 'RRK': 'Rourkela', 'JRH': 'Jorhat', 'BHJ': 'Bhuj', 'RUP': 'Rupsi', 'SXV': 'Salem', 'TEZ': 'Tezpur', 'IXG': 'Belgaum', 'JAI': 'Jaipur', 'TNI': 'Satna', 'IXJ': 'Jammu', 'SSE': 'Sholapur', 'SLV': 'Simla', 'IXA': 'Agartala', 'IXW': 'Jamshedpur', 'NAG': 'Nagpur', 'SXR': 'Srinagar', 'STV': 'Surat', 'TEI': 'Tezu', 'TJV': 'Thanjavur', 'TRV': 'Trivandrum', 'TIR': 'Tirupati', 'TRZ': 'Trichy', 'TCR': 'Tuticorin', 'BDQ': 'Vadodara', 'VNS': 'Varanasi', 'VGA': 'Vijayawada', 'VTZ': 'Vishakhapatnam', 'WGC': 'Warangal', 'ZER': 'Zero'}
+
 def index (request):
 	context = {}
+
+	books = Bookings.objects.all()
+	fdests = {}
+	tdests = {}
+	for x in books:
+		if x.booking_type=='Flight':
+			f = Flight.objects.get(pk=x.key)
+			res = f.dest
+
+			if res in fdests:
+				fdests[res]+=1
+			else:
+				fdests[res]=1
+		
+		elif x.booking_type=='Train':
+			t = Trains.objects.get(pk=x.key)
+			if t.dest in tdests:
+				tdests[t.dest]+=1
+			else:
+				tdests[t.dest]=1
+	print(fdests)
+	print(tdests)
+
+	frec1 = {}
+	frec2 = {}
+	trec1 = {}
+	trec2 = {}
+
+	frec1['location'] = (sorted(fdests.items(), key=operator.itemgetter(1))[-1][0])
+	frec1['numFlights'] = Flight.objects.filter(dest=frec1['location']).count()
+	frec1['minPrice'] = Flight.objects.filter(dest=frec1['location']).order_by('price')[0:3]
+	
+	frec2['location'] = (sorted(fdests.items(), key=operator.itemgetter(1))[-2][0])
+	frec2['numFlights'] = Flight.objects.filter(dest=frec2['location']).count()
+	frec2['minPrice'] = Flight.objects.filter(dest=frec2['location']).order_by('price')[0:3]
+	
+	trec1['location'] = (sorted(tdests.items(), key=operator.itemgetter(1))[-1][0])
+	trec1['numTrains'] = Trains.objects.filter(dest=trec1['location']).count()
+	trec1['minPrice'] = Trains.objects.filter(dest=trec1['location']).order_by('price')[0:3]
+
+	trec2['location'] = (sorted(tdests.items(), key=operator.itemgetter(1))[-2][0])
+	trec2['numTrains'] = Trains.objects.filter(dest=trec2['location']).count()
+	trec2['minPrice'] = Trains.objects.filter(dest=trec2['location']).order_by('price')[0:3]
+
+
+
+
+
+
 	flag = True
 	if request.user.is_authenticated:
 		bookings = Bookings.objects.filter (user=request.user)
@@ -57,6 +110,11 @@ def index (request):
 			'flight_dest': most_frequent(flight_dest_list),
 			'train_origin':  most_frequent(train_origin_list),
 			'train_dest':  most_frequent(train_dest_list),
+			'frec1': frec1,
+			'frec2': frec2,
+			'trec1': trec1,
+			'trec2': trec2,
+
 		})
 	else:
 		return render (request, 'myapp/index.html', {})

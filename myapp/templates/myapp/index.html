@@ -304,8 +304,16 @@
 			<div class="container">
 				<div class="row justify-content-center mb-5 pb-3">
 			<div class="col-md-7 heading-section text-center ftco-animate">
-					{% if hotel != "Aight" %}
+					{% if hotel != "Aight" or flight_origin != -1 or train_origin != -1 %}
 				<h2 class="mb-4">Handpicked for you</h2>
+				{% else %}
+				<div class="container">
+						<div class="row justify-content-center mb-5 pb-3">
+							<div class="col-md-7 heading-section text-center ftco-animate">
+								<h2 class="mb-4">Welcome, {{ user.username }}</h2>
+							</div>
+						</div>
+				</div>
 				{% endif %}
 			</div>
 			</div>
@@ -319,14 +327,7 @@
 						</div>
 					</a>
 				</div>
-				{% else %}
-				<div class="container">
-						<div class="row justify-content-center mb-5 pb-3">
-							<div class="col-md-7 heading-section text-center ftco-animate">
-								<h2 class="mb-4">Welcome, {{ user.username }}</h2>
-							</div>
-						</div>
-				</div>
+				
 				{% endif %}
 				{% if flight_origin != -1 %}
 				<div class="col-md-4 ftco-animate">
@@ -419,27 +420,34 @@
     					</a>
     					<div class="text p-3">
     						<div class="d-flex">
-    							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
-		    						<p class="rate">
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star-o"></i>
-		    							<span>8 Rating</span>
-		    						</p>
-	    						</div>
+										<div class="one">
+												<h3><a href="#">{{trec1.location}}</a></h3>
+												<hr>
+												<a href=""><h6>{{trec1.numTrains}} trains</h6></a>
+												<br>
+												<h6>Min price:</h6>
+												{% for x in trec1.minPrice %}
+												<form action="{% url 'filter_trains' %}">
+														<input type="hidden" name="dest" value="{{trec1.location}}">
+														<input type="hidden" name="passengers" value="1">
+														<input type="hidden" name="origin" value="">
+														<input type="hidden" name="dept" value="{{x.dept|date:'m/d/Y'}}">
+														<a  onclick="document.getElementById('trec1{{x.pk}}').click()" style="color: black; cursor: pointer"><h6>₹ {{x.price}} on {{x.dept}}</h6></a>
+														<input type="submit" style="display: none" id="trec1{{x.pk}}">
+														
+			
+													</form>
+												{% endfor %}
+												
+											</div>
 	    						<div class="two">
-	    							<span class="price">$200</span>
+	    							<span class="price"></span>
     							</div>
     						</div>
-    						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span>
-    							<span class="ml-auto"><a href="#">Discover</a></span>
+    							<span><i class="icon-map-o"></i> Ravel</span>
+    							
     						</p>
     					</div>
     				</div>
@@ -454,27 +462,35 @@
     					<div class="text p-3">
     						<div class="d-flex">
     							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
-		    						<p class="rate">
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star-o"></i>
-		    							<span>8 Rating</span>
-		    						</p>
+										<h3><a href="#">{{frec1.location}}</a></h3>
+										<hr>
+										<a href=""><h6>{{frec1.numFlights}} flights</h6></a>
+										<br>
+										<h6>Min price:</h6>
+										{% for x in frec1.minPrice %}
+										<form action="{% url 'filter_flights' %}">
+											<input type="hidden" name="dest" value="{{frec1.location}}">
+											<input type="hidden" name="passengers" value="1">
+											<input type="hidden" name="origin" value="">
+											<input type="hidden" name="dept" value="{{x.dept|date:'m/d/Y'}}">
+											<a  onclick="document.getElementById('frec1{{x.pk}}').click()" style="color: black; cursor: pointer"><h6>₹ {{x.price}} on {{x.dept}}</h6></a>
+											<input type="submit" style="display: none" id="frec1{{x.pk}}">
+											
+
+										</form>
+										{% endfor %}
+										
 	    						</div>
 	    						<div class="two">
-	    							<span class="price">$200</span>
+	    							<span class="price"></span>
     							</div>
     						</div>
-    						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
+    						
     						<hr>
-    						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span>
-    							<span class="ml-auto"><a href="#">Discover</a></span>
-    						</p>
+								<p class="bottom-area d-flex">
+										<span><i class="icon-map-o"></i> Ravel</span>
+										
+									</p>
     					</div>
     				</div>
     			</div>
@@ -487,28 +503,35 @@
     					</a>
     					<div class="text p-3">
     						<div class="d-flex">
-    							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
-		    						<p class="rate">
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star-o"></i>
-		    							<span>8 Rating</span>
-		    						</p>
-	    						</div>
+										<div class="one">
+												<h3><a href="#">{{trec2.location}}</a></h3>
+												<hr>
+												<a href=""><h6>{{trec2.numTrains}} trains</h6></a>
+												<br>
+												<h6>Min price:</h6>
+												{% for x in trec2.minPrice %}
+												<form action="{% url 'filter_trains' %}">
+														<input type="hidden" name="dest" value="{{trec2.location}}">
+														<input type="hidden" name="passengers" value="1">
+														<input type="hidden" name="origin" value="">
+														<input type="hidden" name="dept" value="{{x.dept|date:'m/d/Y'}}">
+														<a  onclick="document.getElementById('trec2{{x.pk}}').click()" style="color: black; cursor: pointer"><h6>₹ {{x.price}} on {{x.dept}}</h6></a>
+														<input type="submit" style="display: none" id="trec2{{x.pk}}">
+														
+			
+													</form>
+												{% endfor %}
+												
+											</div>
 	    						<div class="two">
-	    							<span class="price">$200</span>
+	    							<span class="price"></span>
     							</div>
     						</div>
-    						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
     						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span>
-    							<span class="ml-auto"><a href="#">Discover</a></span>
-    						</p>
+										<span><i class="icon-map-o"></i> Ravel</span>
+										
+									</p>
     					</div>
     				</div>
     			</div>
@@ -521,28 +544,35 @@
     					</a>
     					<div class="text p-3">
     						<div class="d-flex">
-    							<div class="one">
-		    						<h3><a href="#">Paris, Italy</a></h3>
-		    						<p class="rate">
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star"></i>
-		    							<i class="icon-star-o"></i>
-		    							<span>8 Rating</span>
-		    						</p>
-	    						</div>
+										<div class="one">
+												<h3><a href="#">{{frec2.location}}</a></h3>
+												<hr>
+												<a href=""><h6>{{frec2.numFlights}} flights</h6></a>
+												<br>
+												<h6>Min price:</h6>
+												{% for x in frec2.minPrice %}
+												<form action="{% url 'filter_flights' %}">
+														<input type="hidden" name="dest" value="{{frec2.location}}">
+														<input type="hidden" name="passengers" value="1">
+														<input type="hidden" name="origin" value="">
+														<input type="hidden" name="dept" value="{{x.dept|date:'m/d/Y'}}">
+														<a  onclick="document.getElementById('frec2{{x.pk}}').click()" style="color: black; cursor: pointer"><h6>₹ {{x.price}} on {{x.dept}}</h6></a>
+														<input type="submit" style="display: none" id="frec2{{x.pk}}">
+														
+			
+													</form>
+												{% endfor %}
+												
+											</div>
 	    						<div class="two">
-	    							<span class="price">$200</span>
+	    							<span class="price"></span>
     							</div>
     						</div>
-    						<p>Far far away, behind the word mountains, far from the countries</p>
-    						<p class="days"><span>2 days 3 nights</span></p>
     						<hr>
-    						<p class="bottom-area d-flex">
-    							<span><i class="icon-map-o"></i> San Franciso, CA</span>
-    							<span class="ml-auto"><a href="#">Discover</a></span>
-    						</p>
+								<p class="bottom-area d-flex">
+										<span><i class="icon-map-o"></i> Ravel</span>
+										
+									</p>
     					</div>
     				</div>
     			</div>
@@ -986,3 +1016,14 @@
   color: #ffffff;
 }
 </style>
+
+<script>
+
+function getDate(d){
+	alert(d)
+	
+}
+
+
+
+</script>

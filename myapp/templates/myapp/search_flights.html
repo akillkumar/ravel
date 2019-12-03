@@ -435,88 +435,67 @@ function formattedDate(d = new Date) {
 
 
                     <div class="col-lg-9">
-                        <div class="card" style="background: #dbdbdb;">
+                        {% for flight in flight_list %}
+                        <div class="card mb-3" style="background: #ebe9e9;">
                         <div class="row">
-                            {% for flight in flight_list %}
+                            
                                 
-                                        <div class="card-body" width="100%" >
-                                            
+                              <div class="card-body" width="100%" >
+                                  
 
-                                          <div class="row">
-                                            <div class="col-lg-2 text-center ">
-                                                <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/SG.png?v=4" alt="logo" height="50px" width="50px" >
-                                                <br>
-                                                {{flight.flight_name}}
+                                <div class="row mb-3">
+                                  <div class="col-lg-2 text-center ">
+                                      <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/SG.png?v=4" alt="logo" height="50px" width="50px" >
+                                      <br>
+                                      {{flight.flight_name}}
 
-                                            </div>
+                                  </div>
 
-                                            
-                                            <div class="col-lg-2 text-center">
-                                                <span class="bg-primary">Departure:  </span>
-                                                <br>
-                                                <span class="text-primary"> {{flight.deptTime}} {{flight.origin}} </span>
+                                  
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-primary">Departure:  </span>
+                                      <br>
+                                      <span class="text-primary"> {{flight.deptTime}} {{flight.origin}} </span>
 
-                                            </div>
+                                  </div>
 
-                                            <div class="col-lg-2 text-center">
-                                                <span class="bg-dark text-light">Duration: </span>
-                                                  <br>
-                                                  {{flight.duration}} hours
-                                            </div>
-
-                                            <div class="col-lg-2 text-center">
-                                                <span class="bg-danger text-light">Arrival Time:</span>
-                                                  <br>
-                                                  <span class="text-danger">{{flight.arrivalTime}} {{flight.dest}}</span>
-                                            </div>
-
-                                            <div class="col-lg-1 text-center font-weight-bold">
-                                              Price:
-                                              <br>
-                                              <span class="text-dark">${{flight.price | mul:passengers}}</span>
-                                            </div>
-
-                                            <div class="col-lg-2 text-center font-weight-bold">
-                                              Class:
-                                              <br>
-                                              {{flight.flight_class}}
-                                              <br>
-                                              
-                                            </div>
-                                            <div class="col-lg-1 text-center">
-                                                <form method="POST" action="/flight_booking/" class="form-group">
-                                                  {% csrf_token %}
-                                                  <input type="hidden" name="flight_id" value="{{ flight.pk }}">
-                                                  <button type="submit" class="btn btn-success">Book</button>
-                                              </form>
-                                            </div>
-                                         
-                                         <!---- <span class="bg-primary">Departure Time: &nbsp </span>   &nbsp  &nbsp  &nbsp
-                                          <span class="bg-dark text-light">Duration: &nbsp </span>  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp   &nbsp   &nbsp
-                                          <span class="bg-danger text-light">Arrival Time: &nbsp </span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp  &nbsp 
-                                          Price:&nbsp   &nbsp 
-                                          <form method="POST" action="/myapp/booking/" class="form-group">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="flight_id" value="{{ flight.pk }}">
-                                            <button type="submit" class="btn btn-success">Book</button>
-                                        </form>
-          
-          
-          
-                                          <br>
-                                        (Flight code) &nbsp &nbsp &nbsp <span class="text-primary"> {{flight.deptTime}} {{flight.origin}} </span>
-                                        &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-dark text-light">Duration: </span>
+                                        <br>
                                         {{flight.duration}} hours
-                                          &nbsp &nbsp  &nbsp  &nbsp
-                                        <span class="text-danger">{{flight.arrivalTime}} {{flight.dest}}</span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  
-                                        <span class="text-dark">${{flight.price | mul:passengers}}</span>
-                                        </div>
-                                      </div>
-                                    </div>     
-                                  {% endfor %} -->
-          
+                                  </div>
+
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-danger text-light">Arrival Time:</span>
+                                        <br>
+                                        <span class="text-danger">{{flight.arrivalTime}} {{flight.dest}}</span>
+                                  </div>
+
+                                  <div class="col-lg-1 text-center font-weight-bold">
+                                    Price:
+                                    <br>
+                                    <span class="text-dark">${{flight.price | mul:passengers}}</span>
+                                  </div>
+
+                                  <div class="col-lg-2 text-center font-weight-bold">
+                                    Class:
+                                    <br>
+                                    {{flight.flight_class}}
+                                    <br>
+                                    
+                                  </div>
+                                  <div class="col-lg-1 text-center">
+                                      <form method="POST" action="/flight_booking/" class="form-group">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="flight_id" value="{{ flight.pk }}">
+                                        <button type="submit" class="btn btn-success">Book</button>
+                                    </form>
+                                  </div>
+                              
                         </div>
                     </div>
+                    <br>
+                    
                 
                 
                             
@@ -524,7 +503,7 @@ function formattedDate(d = new Date) {
                     
                                 
                     </div>
-
+                    {% endfor %}
                     
                     </div>
 
