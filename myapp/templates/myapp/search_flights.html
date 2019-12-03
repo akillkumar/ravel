@@ -434,7 +434,6 @@ function formattedDate(d = new Date) {
 
 
 
-
                     <div class="col-lg-9">
                         <div class="card" style="background: #dbdbdb;">
                         <div class="row">
@@ -485,7 +484,7 @@ function formattedDate(d = new Date) {
                                               
                                             </div>
                                             <div class="col-lg-1 text-center">
-                                                <form method="POST" action="/myapp/booking/" class="form-group">
+                                                <form method="POST" action="/flight_booking/" class="form-group">
                                                   {% csrf_token %}
                                                   <input type="hidden" name="flight_id" value="{{ flight.pk }}">
                                                   <button type="submit" class="btn btn-success">Book</button>
