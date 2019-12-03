@@ -31,19 +31,20 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Adventure</a>
+	      <a class="navbar-brand" href="/#">Ravel</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="places.html" class="nav-link">Places</a></li>
-	          <li class="nav-item active"><a href="hotel.html" class="nav-link">Hotels</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+	          <li class="nav-item"><a href="/#" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="/hotels/?checkin=12%2F27%2F2019&checkout=12%2F28%2F2019&location=&guests=1" class="nav-link">Hotels</a></li>
+			  	{% if user.is_authenticated %}
+				  <li class="nav-item"><a href="/profile" class="nav-link">{{ user.username }}</a></li>
+				{% else %}
+					<li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+				{% endif %}
 	        </ul>
 	      </div>
 	    </div>
