@@ -230,7 +230,7 @@
 													<label for="#">Destination</label>
 													<div class="form-field">
 														<div class="icon"><span class="icon-map-marker"></span></div>
-														<input name="location" type="text" class="form-control" placeholder="City" required>
+														<input name="location" id="searchHotelCity" type="text" class="form-control" placeholder="City" required>
 													</div>
 												</div>
 											</div>
@@ -1233,6 +1233,7 @@
 		
 		autocomplete(document.getElementById("flightHomeOrigin"), cityCodes);
 		autocomplete(document.getElementById("flightHomeDest"), cityCodes);
+		autocomplete(document.getElementById("searchHotelCity"), cityCodes);
 		
 		
 		</script>

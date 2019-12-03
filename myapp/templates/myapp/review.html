@@ -1,0 +1,7 @@
+<form action="{% url 'review' %}" method='POST'>
+        {% csrf_token %}
+    <input type="number" min="0" max="5" name="rating">
+    <input type="hidden" name="hotel" value="{{hotel_id}}">
+    <textarea type="text" name="review"></textarea>
+    <input type="submit" value="Send review">
+</form>

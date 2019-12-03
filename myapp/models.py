@@ -96,6 +96,9 @@ class Hotel (models.Model):
 	hotel_kitchen = models.BooleanField (default = False)
 	hotel_ac = models.BooleanField (default = False)
 
+	hotel_rating = models.FloatField (default=0.0)
+	hotel_number_of_ratings = models.IntegerField(default=0)
+
 	hotel_class = models.CharField (max_length = 15, default = "")
 	available_rooms = models.IntegerField (default = 0)
 	price = models.FloatField (default = 0.0)

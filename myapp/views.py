@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.models import User
 
-from .models import Flight, Trains, Buses, Hotel, Bookings
+from .models import Flight, Trains, Buses, Hotel, Bookings, Hotel_Ratings
 
 from datetime import date,datetime
 import datetime as dt
@@ -11,19 +11,20 @@ import datetime as dt
 myVar=0
 
 def index (request):
+	#----getting popular destinations
+
+
+
+	#----------
 	return render (request, 'myapp/index.html', {})
 
-def flight_details (request, flight_id):
+def details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
-	return render(request, 'myapp/flight_details.html', {'flight' : flight})
-
-def train_details (request, train_id):
-	train = get_object_or_404 (Trains, pk = train_id)
-	return render(request, 'myapp/train_details.html', {'train' : train})
+	return render(request, 'myapp/details.html', {'flight' : flight})
 
 def places (request):
 	if request.method=='GET':
-		city = request.GET.get('location','').split('-')[0]
+		city = request.GET.get('location','').split('-')[0][0:3]
 		guests = request.GET.get('guests','')
 		priceLow = request.GET.get('priceLow','')
 		priceHigh = request.GET.get('priceHigh','')
@@ -52,6 +53,55 @@ def places (request):
 				'guests':guests,
 				'priceLow':priceLow,
 				'priceHigh':priceHigh})
+
+def flight_details (request, flight_id):
+	flight = get_object_or_404 (Flight, pk = flight_id)
+	return render(request, 'myapp/flight_details.html', {'flight' : flight})
+
+def train_details (request, train_id):
+	train = get_object_or_404 (Trains, pk = train_id)
+	return render(request, 'myapp/train_details.html', {'train' : train})
+
+def hotel_details (request, hotel_id):
+	if request.method=='GET':
+		hotel = get_object_or_404 (Hotel,pk=hotel_id)
+		return render (request, 'myapp/hotel-single.html',{'hotel':hotel})
+
+def add_review (request):
+	if request.method=='POST':
+		user = request.user
+		hotel_id = request.POST.get('hotel')
+		hotel = get_object_or_404 (Hotel, pk=hotel_id)
+		rating = request.POST.get('rating')
+		review = request.POST.get('review')
+
+		x = Hotel_Ratings.objects.filter(user=user,hotel=hotel_id)
+		
+		if len(x):
+			review = x[0].review
+			print(review)
+			x[0].delete()
+
+		r = Hotel_Ratings (user=user,hotel=hotel,rating=rating,review=review)
+		r.save()
+
+		RatingList = Hotel_Ratings.objects.filter(hotel=hotel_id)
+		numReviews = RatingList.count()
+
+		sumRating = 0
+
+		for i in RatingList:
+			sumRating+=i.rating
+		
+		overall = sumRating/numReviews
+
+		x = Hotel.objects.get(pk=hotel_id)
+		x.hotel_rating = overall
+		x.hotel_number_of_ratings = numReviews
+		x.save()
+
+		print(user,hotel,rating,review)
+		return HttpResponseRedirect('/myapp/hotel/'+hotel_id)
 
 def myFunc (request):
 	if request.method=='GET':
@@ -312,6 +362,9 @@ def filter_trains (request):
 		})
 
 
+
+
+
 def  book_flight (request):
 	if request.method == "POST":
 		flight_id = request.POST.get('flight_id', '')
@@ -320,11 +373,10 @@ def  book_flight (request):
 	flight = get_object_or_404 (Flight, pk = flight_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk, price = flight.price)
+	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
 	b.save()
 
-	return render (request, 'myapp/flight_booking.html', {'flight': flight})
-
+	return render (request, 'myapp/booking.html', {'flight': flight})
 
 def  book_train (request):
 	if request.method == "POST":
