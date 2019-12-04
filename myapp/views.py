@@ -51,7 +51,7 @@ def index (request):
 	frec2 = {}
 	trec1 = {}
 	trec2 = {}
-
+	
 	frec1['location'] = (sorted(fdests.items(), key=operator.itemgetter(1))[-1][0])
 	frec1['numFlights'] = Flight.objects.filter(dest=frec1['location']).count()
 	frec1['minPrice'] = Flight.objects.filter(dest=frec1['location']).order_by('price')[0:3]
@@ -120,7 +120,7 @@ def index (request):
 
 		})
 	else:
-		return render (request, 'myapp/index.html', {})
+		return render (request, 'myapp/index.html', {'frec1':frec1,'frec2':frec2,'trec1':trec1,'trec2':trec2,'hots':hots})
 
 def details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
@@ -199,10 +199,13 @@ def add_review (request):
 		rating = request.POST.get('rating')
 		review = request.POST.get('review')
 
+		print('working')
+
 		x = Hotel_Ratings.objects.filter(user=user,hotel=hotel_id)
 		
 		if len(x):
-			review = x[0].review
+			if not review:
+				review = x[0].review
 			print(review)
 			x[0].delete()
 
@@ -214,7 +217,9 @@ def add_review (request):
 
 		sumRating = 0
 
+		print('RATING LIST')
 		for i in RatingList:
+			print(i.rating)
 			sumRating+=i.rating
 		
 		overall = sumRating/numReviews
@@ -224,8 +229,10 @@ def add_review (request):
 		x.hotel_number_of_ratings = numReviews
 		x.save()
 
+		print('working2')
+
 		print(user,hotel,rating,review)
-		return HttpResponseRedirect('/myapp/hotel/'+hotel_id)
+		return HttpResponseRedirect('/hotel/'+hotel_id)
 
 def myFunc (request):
 	if request.method=='GET':

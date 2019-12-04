@@ -3,10 +3,133 @@
 -->
 {% extends 'myapp/base.html' %}
 
-{% block title %}
-    Ravel | Train Bookings
-{% endblock %}
-
 {% block content %}
-    <h1>Your {{ train.train_name }} booking has been confirmed!</h1>
+<div class="container" style="text-align: center;">
+        <h1>Your {{ train.train_name }} booking has been confirmed!</h1>
+        <br>
+        <span style="color: #222832;">Thank you for choosing Ravel!</span>
+        <br><br>
+    </div>
+    <br><br><br>
+    <div class="container" style="padding-left: 25%;">
+        <div class="row">
+                <div class="col-md-6">
+                    <label>Name</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>UserID</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ user.username }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email</label>
+                </div>
+                <div class="col-md-6">
+                    <p> {{user.email}} </p>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <label>Booking ID</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> B00{{ user.pk }}0{{ booking.key }}{{ booking.pk }} </p>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <label>Booking Type</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ booking.booking_type }} </p>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <label>Booking Time</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ booking.timestamp }} </p>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <label>Grand Total</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ booking.price }} </p>
+                    </div>
+            </div>
+            
+            <br><br>
+    </div>
+
+    <div style="text-align: center;">
+            <h4>train Details:</h4>
+            <span style="color: darkgray;">{{ train.train_name }} - {{ train.train_number}}</span>
+            <br><br>
+    </div>
+
+    <div class="container" style="padding-left: 25%;">
+        <div class="row">
+                <div class="col-md-6">
+                        <label>Origin</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ train.origin }} </p>
+                </div>   
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                        <label>Destination</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ train.dest }} </p>
+                </div>   
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <label>Departure</label>
+                </div>
+                <div class="col-md-6">
+                    <p> {{ train.dept }} - {{train.deptTime}} </p>
+            </div>   
+    </div>
+        <div class="row">
+                <div class="col-md-6">
+                    <label>Arrival</label>
+                </div>
+                <div class="col-md-6">
+                    <p> {{ train.arrival }} - {{ train.arrivalTime}} </p>
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-md-6">
+                        <label>Duration</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p> {{ train.duration }} </p>
+                </div>   
+        </div>
+
+
+    </div>
+
+    <br><br><br>
+
+    <div class="container" style="text-align: center;">
+        <div class="form-group">
+           <a href="/"> <input type="submit" value="Home" class="btn btn-primary py-3 px-5"></a>
+
+        </div>
+    </div>
 {% endblock %}

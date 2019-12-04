@@ -48,6 +48,7 @@
                 <li class="nav-item"><a href="/hotels" class="nav-link">Hotels</a></li>
               {% if user.is_authenticated %}
               <li class="nav-item"><a href="/profile" class="nav-link">{{ user.username }}</a></li>
+              <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
             {% else %}
               <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
             {% endif %}
@@ -476,6 +477,7 @@ function formattedDate(d = new Date) {
                                       <form method="POST" action="/train_booking/" class="form-group">
                                         {% csrf_token %}
                                         <input type="hidden" name="train_id" value="{{ train.pk }}">
+                                        <input type="hidden" name="passengers" value="{{ passengers }}">
                                         <button type="submit" class="btn btn-success">Book</button>
                                     </form>
                                   </div>

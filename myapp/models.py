@@ -127,5 +127,5 @@ class Hotel_Ratings (models.Model):
 
 	user = models.ForeignKey (User, on_delete = models.CASCADE, null = True)
 	hotel =  models.ForeignKey (Hotel, on_delete = models.CASCADE, null = True)
-	rating = models.IntegerField ()
-	review = models.CharField (max_length = 500, default="")
+	rating = models.IntegerField (null = True)
+	review = models.CharField (max_length = 500, default="", null=True)

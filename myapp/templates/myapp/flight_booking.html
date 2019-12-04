@@ -101,6 +101,14 @@
                 </div>   
         </div>
         <div class="row">
+            <div class="col-md-6">
+                <label>Arrival</label>
+            </div>
+            <div class="col-md-6">
+                <p> {{ flight.arrival }} - {{ flight.arrivalTime}} </p>
+            </div>
+    </div>
+        <div class="row">
                 <div class="col-md-6">
                     <label>Arrival</label>
                 </div>
@@ -125,7 +133,8 @@
 
     <div class="container" style="text-align: center;">
         <div class="form-group">
-            <input type="submit" value="Home" class="btn btn-primary py-3 px-5">
+           <a href="/"> <input type="submit" value="Home" class="btn btn-primary py-3 px-5"></a>
+
         </div>
     </div>
 {% endblock %}
