@@ -8,12 +8,14 @@
 {% endblock %}
 
 {% block content %}
+<br>
     <div class="container">
         <h1>Your {{ hotel.hotel_name }} booking has been confirmed!</h1>
         <span>Thank you for choosing Ravel!</span>
     </div>
 
-    <div class="container">
+    <br><br><br>
+        <div class="container" style="padding-left: 25%;">
             <div class="row">
                     <div class="col-md-6">
                         <label>Name</label>
@@ -40,14 +42,6 @@
                 </div>
                 <div class="row">
                         <div class="col-md-6">
-                            <label>Booking Type</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p> {{ booking.type } </p>
-                        </div>
-                </div>
-                <div class="row">
-                        <div class="col-md-6">
                             <label>Booking ID</label>
                         </div>
                         <div class="col-md-6">
@@ -56,10 +50,18 @@
                 </div>
                 <div class="row">
                         <div class="col-md-6">
+                            <label>Booking Type</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ booking.booking_type }} </p>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-6">
                             <label>Booking Time</label>
                         </div>
                         <div class="col-md-6">
-                            <p> {{ booking.timestamp } </p>
+                            <p> {{ booking.timestamp }} </p>
                         </div>
                 </div>
                 <div class="row">
@@ -67,10 +69,52 @@
                             <label>Grand Total</label>
                         </div>
                         <div class="col-md-6">
-                            <p> {{ booking.price } </p>
+                            <p>₹{{ booking.price }} </p>
                         </div>
                 </div>
-
-    </div>
-
+                
+                <br><br>
+        </div>
+    
+        <div style="text-align: center;">
+                <h4>Hotel Details:</h4>
+                <span style="color: darkgray;">{{ hotel.hotel_name }}</span>
+                <br><br>
+        </div>
+    
+        <div class="container" style="padding-left: 25%;">
+            <div class="row">
+                    <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ hotel.hotel_address }} </p>
+                    </div>   
+            </div>
+            <div class="row">
+                    <div class="col-md-6">
+                            <label>Bedrooms</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p> {{ hotel.hotel_rooms }} </p>
+                    </div>   
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Class</label>
+                </div>
+                <div class="col-md-6">
+                    <p> {{ hotel.hotel_class }} </p>
+                </div>    
+    
+        </div>
+    
+        <br><br><br>
+    
+        <div class="container" style="text-align: center;">
+            <div class="form-group">
+               <a href="/"> <input type="submit" value="Home" class="btn btn-primary py-3 px-5"></a>
+    
+            </div>
+        </div>
 {% endblock %}
