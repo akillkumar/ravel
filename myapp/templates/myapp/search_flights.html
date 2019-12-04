@@ -479,6 +479,7 @@ function formattedDate(d = new Date) {
                                       <form method="POST" action="/flight_booking/" class="form-group">
                                         {% csrf_token %}
                                         <input type="hidden" name="flight_id" value="{{ flight.pk }}">
+                                        <input type="hidden" name="passengers" value="{{passengers}}">
                                         <button type="submit" class="btn btn-success">Book</button>
                                     </form>
                                   </div>

@@ -113,7 +113,7 @@ class Bookings (models.Model):
 	user = models.ForeignKey (User, on_delete = models.CASCADE, related_name="userboi", null = True)
 	booking_type = models.CharField (max_length=8, default="")
 	booking_name = models.CharField (max_length = 50, default = "")
-	key = models.IntegerField ()
+	key = models.IntegerField ()	
 
 	timestamp = models.DateTimeField (default=datetime.now())
 	

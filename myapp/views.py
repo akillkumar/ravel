@@ -488,27 +488,29 @@ def filter_trains (request):
 def  book_flight (request):
 	if request.method == "POST":
 		flight_id = request.POST.get('flight_id', '')
-		print ('my flight id is - ',flight_id)
+		passengers = request.POST.get('passengers', '')
 	
 	flight = get_object_or_404 (Flight, pk = flight_id)
+	print (passengers)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk)
+	b = Bookings (user=request.user, booking_type='Flight', booking_name=flight.flight_name+ " " + request.user.username , key=flight.pk, travellers = passengers, price=int(passengers)*flight.price)
 	b.save()
 
-	return render (request, 'myapp/flight_booking.html', {'flight': flight})
+	return render (request, 'myapp/flight_booking.html', {'flight': flight, 'booking': b})
 
 def  book_train (request):
 	if request.method == "POST":
 		train_id = request.POST.get('train_id', '')
+		passengers = request.POST.get('passengers', '')
 	
 	train = get_object_or_404 (Trains, pk = train_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, price = train.price)
+	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, travellers = passengers, price=int(passengers)*train.price)
 	b.save()
 
-	return render (request, 'myapp/train_booking.html', {'train': train})
+	return render (request, 'myapp/train_booking.html', {'train': train, 'booking': b})
 
 
 
@@ -523,7 +525,7 @@ def  book_hotel (request):
 	b = Bookings (user=request.user, booking_type='Hotel', booking_name=hotel.hotel_name+ " " + request.user.username , key=hotel.pk, price = total)
 	b.save()
 
-	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel})
+	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel, 'booking': b})
 
 def profile (request):
 	booking_list = Bookings.objects.filter (user=request.user)
