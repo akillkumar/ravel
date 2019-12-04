@@ -498,7 +498,8 @@ def  book_train (request):
 		passengers = request.POST.get('passengers', '')
 	
 	train = get_object_or_404 (Trains, pk = train_id)
-
+	print(passengers)
+	
 	# Add entry
 	b = Bookings (user=request.user, booking_type='Train', booking_name=train.train_name+ " " + request.user.username , key=train.pk, travellers = passengers, price=int(passengers)*train.price)
 	b.save()
