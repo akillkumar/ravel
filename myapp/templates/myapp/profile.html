@@ -120,9 +120,9 @@
                                                     <td>{{ booking.booking_type }}</td>
                                                     <td>{{ booking.booking_name }}</td>
                                                     <td>B00{{ user.pk }}0{{ booking.key }}{{ booking.pk }}</td>
-                                                    <td>{{ booking.timestaamp}}</td>
+                                                    <td>{{ booking.timestamp}}</td>
                                                     <td>{{ booking.travellers }}</td>
-                                                    <td>${{ booking.price }}</td>
+                                                    <td>₹{{ booking.price }}</td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>

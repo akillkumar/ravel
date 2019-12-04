@@ -129,9 +129,11 @@ def details (request, flight_id):
 def places (request):
 	if request.method=='GET':
 		city = request.GET.get('location','').split('-')[0][0:3]
-		guests = request.GET.get('guests','')
+		rooms = request.GET.get('rooms','')
 		priceLow = request.GET.get('priceLow','')
 		priceHigh = request.GET.get('priceHigh','')
+		search = request.GET.get('search','')
+		sort = request.GET.get('sort','')
 
 		if not priceLow:
 			priceLow=0
@@ -144,7 +146,10 @@ def places (request):
 		checkout = request.GET.get('checkout','')
 		res2 = datetime.strptime(checkout,'%m/%d/%Y')
 
-		hotel_list = Hotel.objects.filter(hotel_city__icontains = city, price__gte = priceLow, price__lte = priceHigh)
+		hotel_list = Hotel.objects.filter(hotel_name__icontains = search,hotel_city__icontains = city, price__gte = priceLow, price__lte = priceHigh)
+
+		if sort and sort!='':
+			hotel_list = hotel_list.order_by(sort)
 		return render (request, 'myapp/places.html', 
 			context={
 				'hotel_list': hotel_list,
@@ -152,9 +157,11 @@ def places (request):
 				'nights':(res2-res1).days,
 				'checkin':checkin,
 				'checkout':checkout,
-				'guests':guests,
+				'rooms':rooms,
 				'priceLow':priceLow,
-				'priceHigh':priceHigh})
+				'priceHigh':priceHigh,
+				'search':search,
+				'sort':sort})
 
 def flight_details (request, flight_id):
 	flight = get_object_or_404 (Flight, pk = flight_id)
@@ -403,7 +410,7 @@ def filter_trains (request):
 			seats__gte = passengers).order_by('price')
 
 			if len(prices[i]):
-				prices[i] = '₹ '+str(prices[i][0].price)
+				prices[i] = '₹ '+str(prices[i][0].price*int(passengers))
 			else:
 				prices[i] = '-'
 
@@ -507,12 +514,13 @@ def  book_train (request):
 
 def  book_hotel (request):
 	if request.method == "POST":
-		hotel_id = request.POST.get('hotel_id', '')
+		hotel_id = request.POST.get('hotel', '')
+		total = int(request.POST.get('total', ''))
 	
 	hotel = get_object_or_404 (Hotel, pk = hotel_id)
 
 	# Add entry
-	b = Bookings (user=request.user, booking_type='Hotel', booking_name=hotel.hotel_name+ " " + request.user.username , key=hotel.pk, price = hotel.price)
+	b = Bookings (user=request.user, booking_type='Hotel', booking_name=hotel.hotel_name+ " " + request.user.username , key=hotel.pk, price = total)
 	b.save()
 
 	return render (request, 'myapp/hotel_booking.html', {'hotel': hotel})

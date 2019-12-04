@@ -3,7 +3,8 @@
   <head>
 
 
-		{%load static%}
+    {%load static%}
+    {% load mathfilters %}
 		
 {% load crispy_forms_tags %}
     <title>Ravel | Home</title>
@@ -34,87 +35,126 @@
   <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=aVWLpradGvYPcVBM1I9ShN9kn2scBJtbIKpyzCWACT0fdwNS5ks6Xg2GzZZ1YBQ4AF2tX1urUgvjGrv4m19qukreebo7-loIkCOG-5po8rKe-Unf6Vg87OEbEDBp0J0ZVzKI742evvQuW9uiSWJx4bKeHY0vhO9hf02tgZeURpz8mnDlO2q4NzrwoA-l3MLQ0-ghevCvHr_v5VqiuFVwFNdxVuIKsIvtI3Fo5oEMR_Ugiu3XypSGaG46G_B_VDw_0i24pf8BzB3FVgGFhcMo9tU8n3gOyg_YRRhUHPiuz80_3nxYHGqeCHozxBv65cdfexTrYzW8GJ1xwZQoYKcRawbEXgOSQp-KbF8l7Zb13gcnzI2ijukCJbC1sRJkQP0Cvr6obMYxnLLYboCdS-Da5Out1sgwGp9LVN9c75lwBjsaL4lJKRvkvI67zks73vWKxEXieoUW7iVwYG0oi0iNMJjQxD7SVkSfzo3m1iWW2wYx8oXFvRlqNkYg1wQOTFeYBFfvKBHuMRv1Zxv6jOj35mFTjdcrniMwYosoOGrR1_KdWI8365ceDaZkUluxRyD5gQOnX6V1xZFgzrd6Q9kIho-6hbpKZkoiB7FQEQDoNF5QOlqhUV-PjBlCnCXI37o6se6LfMokI0kKeK4EbStMNwpnQL4wB-QOtHpHOKUjf4OjjLRpxbiCaTqzjraPx8c_evxWnXjrW7djfaYolireeN3zxxmhPr1qwEU5G1zJqOZf3QmkjfRrQNe4CmH5QK6DFol7eTjkNB4TqHY59veH8q5qHktDMJpd67ZyiarOXrVrNKIJ9Y3S0TSjvAD2fcto_tWYimVvZ4VTJOU6KwyfTDYMt_8KBDRHZA_bftgvS9id6IWLoQMMwjy-WVYnTgQXoHDc6w6U_ZwRlHwA7rJzUQ14sn_frjJkjxbws5-BKaXgBvwvF8KP9-y6i-Rz6mqEtuJK2AIZr95mdXbmTVLG98rLRYzDSC338lckLfJF3e1Te4h4pD-Ofz0mtpzjZLE3FrWFGe9FkzoHIOvbmk4Mkoo767c4dcxgWGNUIoa66YQmwy4OcMf3gyRLrYMmqfijILHMkcTC316YFKAyCTenZ-AJ4hnoZzY5Cp11KVG2HLvKq6Rf7sPPvO1t5pCJ3Z6cB1AENr5PnGOq0gHDRZ-P4Q4SDTGl8Y7sZosjeVfnRoE" nonce="37fd3ded8dcfc27143308d7b653b3b4d" charset="UTF-8"></script></head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-dark" id="ftco-navbar">
+          <div class="container">
+            <a class="navbar-brand" href="/">Ravel</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="oi oi-menu"></span> Menu
+            </button>
+    
+            <div class="collapse navbar-collapse" id="ftco-nav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/hotels" class="nav-link">Hotels</a></li>
+              {% if user.is_authenticated %}
+              <li class="nav-item"><a href="/profile" class="nav-link">{{ user.username }}</a></li>
+            {% else %}
+              <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+            {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
 
-        <form method="GET" action="{% url 'filter_trains' %}" class="form-inline my-2 my-lg-0">
-            
+        <br>
+        <br>
+      <br>
         
-            <li class="nav-item dropdown list-unstyled">
-                    <a class="nav-link py-0" href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      From
-                      <br>
-                      <input name="origin" value="{{origin}}" placeholder="Any" class="alert alert-secondary" role="alert">
-                      
-                  
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownT">
-                      <a class="dropdown-item" href="#">Delhi</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Sonipat</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Mumbai</a>
-                    </div>
-                  </li>
 
-                  <li class="nav-item dropdown list-unstyled">
-                        <a class="nav-link py-0 " href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          To
-                          <br>
-                          <input name="dest" value="{{dest}}" placeholder="Any" class="alert alert-secondary" role="alert">
-                      
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownT">
-                          <a class="dropdown-item" href="#">Delhi</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Sonipat</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Mumbai</a>
+
+        <div class="container-fluid " style="background-color: #222831">
+            <div class= "row">
+         
+               <script>var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];</script>
+         
+                 <form autocomplete="off" method="GET" action="{% url 'filter_trains' %}" class="form-inline my-2 my-lg-0">
+                     
+                 
+                     <div class="col-lg-2 px-5">
+                             <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false" style="padding-right: 20px;">
+                               <span style="color: rgb(219, 174, 48)"><strong>From</strong> </span>
+                               <br>
+                               <input name="origin" id="trainOrigin" value="{{origin}}" placeholder="Any" class="alert alert-secondary" role="alert">
+                               
+                             </div>
+                       </div>
+                             
+                          
+         
+                       <div class="col-lg-2 px-5">
+                               <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-right: 3px;">
+                                   <span style="color: rgb(219, 174, 48)"><strong>To</strong> </span>
+                                   <br>
+                                   <input name="dest" id="trainDest" value="{{dest}}" placeholder="Any" class="alert alert-secondary" role="alert">
+                               </div>
                         </div>
-                      </li>
-
-
-                      <li class="nav-item dropdown list-unstyled">
-                            <a class="nav-link py-0 " href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Departure Date:
-                            </a>
-                            <div class="form-group">
-                                    
-                                    <div class="form-field">
-                                        
-                                      <input id='mainDept' name="dept" type="text" class="form-control checkin_date" value="{{dept}}" placeholder="Departure Date">
-                                    </div>
-                                </div>
-                          </li>
-
-                          <li class="nav-item dropdown list-unstyled">
-                                <a class="nav-link py-0" href="#" id="navbarDropdownT" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Number Of Passengers:
-                                  <br>
-                                  <input name="passengers" style="width: 240px" type="number" min="1" value="{{passengers}}" class="alert alert-secondary" role="alert">
                                  
-                                </a>
-                                
-                              </li>
-          </ul>
-
-          <input type='hidden' name='sort' value="{{sort}}">
-          <input type='hidden' name='deptTime' value="{{deptTime}}">
-          
-          <input type='hidden' name='arrivalTime' value="{{arrivalTime}}">
-          <input type='hidden' name='airline' value="{{airline}}">
-          <input type='hidden' name='class' value="{{class}}">
-          
-            
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          
-        </div>
-      </form>
-      </nav>
+                              
+         
+                        <div class="col-lg-2 px-5">
+                               
+                               <div class="nav-link py-0 " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-right: 20px;">
+                                         <span style="color: rgb(219, 174, 48)"><strong>Departure</strong> </span>
+                                     <br>
+                                     <input id='mainDept' name="dept" type="text" class="alert alert-secondary checkin_date" value="{{dept}}" placeholder="Departure Date">
+                                 </div>
+                         </div>
+         
+                         <div class="col-lg-2 px-5">
+         
+                                 <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px;">
+                                           <span style="color: rgb(219, 174, 48)"><strong>Passengers</strong> </span>
+                                           <br>
+                                           <input name="passengers" style="width: 240px" type="number" min="1" value="{{passengers}}" class="alert alert-secondary" role="alert">
+                                          
+                                  </div>
+                           </div>
+         
+                           <div class="col-lg-1 px-5">
+         
+                               <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px; text-align: center">
+                                  <button onclick="document.getElementById('switchToFlights').click()" class="btn btn-outline-success my-2 my-sm-0" type="button">Flights</button>
+                             
+                                        
+                                </div>
+                         </div>
+                         <div class="col-lg-1 px-5">
+         
+                            <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px; text-align: center">
+                               <button disabled class="btn btn-success my-2 my-sm-0" type="button">Trains</button>
+                          
+                                     
+                             </div>
+                      </div>
+                               
+                                         
+         
+                  
+                 
+                           <div class="col-lg-2 ">
+                             <div style="padding-left: 60px;">
+                             <input type='hidden' name='sort' value="{{sort}}">
+                              <input type='hidden' name='deptTime' value="{{deptTime}}">
+                             <input type='hidden' name='arrivalTime' value="{{arrivalTime}}">
+                             <input type='hidden' name='airline' value="{{airline}}">
+                             <input type='hidden' name='class' value="{{class}}">
+                             
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                           </div>
+                         </div>
+                         </div>
+                       </form>
+                       <form action="{% url 'filter_flights' %}">
+                          <input type='hidden' name='origin' value="{{origin}}">
+                          <input type='hidden' name='dest' value="{{dest}}">
+                         <input type='hidden' name='dept' value="{{dept}}">
+                         <input type='hidden' name='passengers' value="{{passengers}}">
+                         <input type="submit" id="switchToFlights" style="display: none">
+                       </form>
+             </div>
       
   
 
-
-<br>
     <section class="pricing py-5" style="background: #020202;
     background: linear-gradient(to right, rgb(121, 120, 121), rgb(8, 8, 8));">
             <div class="container">
@@ -248,7 +288,7 @@ function formattedDate(d = new Date) {
 
 <!-- Filtering -->
 <br>
-    <div class="container">
+    <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 sidebar order-md-last ftco-animate">
                     <div class="sidebar-wrap ftco-animate">
@@ -383,38 +423,75 @@ function formattedDate(d = new Date) {
 
 
                     <div class="col-lg-9">
+                        {% for train in train_list %}
+                        <div class="card mb-3" style="background: #ebe9e9;">
                         <div class="row">
-          
-                            {% for train in train_list %}
-                                <div class="card">
-                                        <div class="card-body">
-                                            <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/SG.png?v=4" alt="logo" height="100%" width="50px" >
-                                          {{train.train_name}}  &nbsp
-                                          <span class="bg-primary">Departure Time: &nbsp </span>   &nbsp  &nbsp  &nbsp
-                                          <span class="bg-dark text-light">Duration: &nbsp </span>  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp   &nbsp   &nbsp   &nbsp
-                                          <span class="bg-danger text-light">Arrival Time: &nbsp </span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp  &nbsp 
-                                          Price:&nbsp   &nbsp 
-                                          <form method="POST" action="/myapp/train_booking/" class="form-group">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="train_id" value="{{ train.pk }}">
-                                            <button type="submit" class="btn btn-success">Book</button>
-                                        </form>
-          
-          
-          
-                                          <br>
-                                        (Train code) &nbsp &nbsp &nbsp <span class="text-primary"> {{train.deptTime}} {{train.origin}} </span>
-                                        &nbsp  &nbsp  &nbsp &nbsp  &nbsp  &nbsp
+                            
+                                
+                              <div class="card-body" width="100%" >
+                                  
+
+                                <div class="row mb-3">
+                                  <div class="col-lg-2 text-center ">
+                                      
+                                      <br>
+                                      {{train.train_name}}
+
+                                  </div>
+
+                                  
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-primary">&nbsp;Departure: &nbsp; </span>
+                                      <br>
+                                      <span class="text-primary"> {{train.deptTime}} {{train.origin}} </span>
+
+                                  </div>
+
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-dark text-light">&nbsp;Duration: &nbsp;</span>
+                                        <br>
                                         {{train.duration}} hours
-                                          &nbsp &nbsp  &nbsp  &nbsp
-                                        <span class="text-danger">{{train.arrivalTime}} {{train.dest}}</span> &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  
-                                        <span class="text-dark">${{train.price}}</span>
-                                        </div>
-                                      </div>
-          
-                                  {% endfor %}
-          
+                                  </div>
+
+                                  <div class="col-lg-2 text-center">
+                                      <span class="bg-danger text-light">&nbsp;Arrival Time:&nbsp;</span>
+                                        <br>
+                                        <span class="text-danger">{{train.arrivalTime}} {{train.dest}}</span>
+                                  </div>
+
+                                  <div class="col-lg-1 text-center font-weight-bold">
+                                      &nbsp;Price:&nbsp;
+                                    <br>
+                                    <span class="text-dark">₹{{train.price | mul:passengers}}</span>
+                                  </div>
+
+                                  <div class="col-lg-2 text-center font-weight-bold">
+                                      &nbsp; Class:&nbsp;
+                                    <br>
+                                    {{train.train_class}}
+                                    <br>
+                                    
+                                  </div>
+                                  <div class="col-lg-1 text-center">
+                                      <form method="POST" action="/train_booking/" class="form-group">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="train_id" value="{{ train.pk }}">
+                                        <button type="submit" class="btn btn-success">Book</button>
+                                    </form>
+                                  </div>
+                              
                         </div>
+                    </div>
+                    <br>
+                    
+                
+                
+                            
+                </div>
+                    
+                                
+                    </div>
+                    {% endfor %}
                     </div>
                 
                 

@@ -63,7 +63,7 @@
         		<div class="sidebar-wrap ftco-animate">
 							<h3 class="heading mb-4">Book Now</h3>
 							<p>${{hotel.price}} per room per night</p>
-        			<form action="#">
+        			
         				<div class="fields">
 									<p>Check-in Date</p>
 		              <div class="form-group">
@@ -79,11 +79,17 @@
 										</div>
 										<p>Total cost: <strong id="totalCost">₹ {{hotel.price}}</strong></p>
 
+										<form action="{% url 'book_hotel' %}" method="POST">
+											{% csrf_token %}
+											<input type="hidden" name="hotel" value="{{hotel.pk}}">
+											<input type="number" style="display: none" name="total" id="totalPriceInput">
 		              <div class="form-group">
-		                <input type="submit" value="Book" class="btn btn-primary py-3 px-5">
-		              </div>
+										<input type="button" onclick="document.getElementById('totalPriceInput').value=getCost(); document.getElementById('bookHotel').click()" value="Book" class="btn btn-primary py-3 px-5">
+										<input type="submit" style="display: none;" id="bookHotel" value="BOOK NOW">
+									</div>
+								</form>
 		            </div>
-	            </form>
+	            
         		</div>
         		
           </div>
@@ -394,6 +400,7 @@ function getCost(){
 			break
 	}
 	document.getElementById('totalCost').innerHTML = '₹ '+i*parseFloat('{{hotel.price}}')*(d2.getDate()-d1.getDate())
+	return i*parseFloat('{{hotel.price}}')*(d2.getDate()-d1.getDate())
 }
 
 </script>

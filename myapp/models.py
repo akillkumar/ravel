@@ -2,6 +2,8 @@ from django.db import models
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 
+from datetime import datetime
+
 
 # Some defaults
 def default_start_time():
@@ -113,7 +115,7 @@ class Bookings (models.Model):
 	booking_name = models.CharField (max_length = 50, default = "")
 	key = models.IntegerField ()
 
-	timestamp = models.DateTimeField (auto_now = False, default=default_start_time)
+	timestamp = models.DateTimeField (default=datetime.now())
 	
 	travellers = models.IntegerField (default = 1)
 	price = models.FloatField (default = 0.0)

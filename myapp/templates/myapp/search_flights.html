@@ -37,14 +37,14 @@
 
       <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-dark" id="ftco-navbar">
           <div class="container">
-            <a class="navbar-brand" href="/#">Ravel</a>
+            <a class="navbar-brand" href="/">Ravel</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="oi oi-menu"></span> Menu
             </button>
     
             <div class="collapse navbar-collapse" id="ftco-nav">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="/#" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="/hotels" class="nav-link">Hotels</a></li>
               {% if user.is_authenticated %}
               <li class="nav-item"><a href="/profile" class="nav-link">{{ user.username }}</a></li>
@@ -110,15 +110,23 @@
                          </div>
                   </div>
 
-                  <div class="col-lg-2 px-5">
+                  
+                <div class="col-lg-1 px-5">
 
-                      <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px;">
-                                <span style="color: rgb(219, 174, 48)"><strong>Mode of Travel</strong> </span>
-                                <br>
-                                <input name="mode" style="width: 240px" type="dropdown" min="1" value="{{passengers}}" class="alert alert-secondary" role="alert">
-                               
-                       </div>
-                </div>
+                   <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px; text-align: center">
+                      <button disabled class="btn btn-success my-2 my-sm-0" type="button">Flights</button>
+                 
+                            
+                    </div>
+             </div>
+             <div class="col-lg-1 px-5">
+         
+                <div class="autocomplete" href="#" aria-haspopup="true" aria-expanded="false"  style="padding-left: 20px; text-align: center">
+                   <button onclick="document.getElementById('switchToTrains').click()" class="btn btn-outline-success my-2 my-sm-0" type="button">Trains</button>
+              
+                         
+                 </div>
+          </div>
                       
                                 
 
@@ -135,9 +143,17 @@
                   </div>
                 </div>
                 </div>
+              </form>
+              <form action="{% url 'filter_trains' %}">
+                  <input type='hidden' name='origin' value="{{origin}}">
+                  <input type='hidden' name='dest' value="{{dest}}">
+                 <input type='hidden' name='dept' value="{{dept}}">
+                 <input type='hidden' name='passengers' value="{{passengers}}">
+                 <input type="submit" id="switchToTrains" style="display: none">
+               </form>
     </div>
- </div>
-      </form>
+ 
+      
     
       
   
@@ -286,29 +302,12 @@ function formattedDate(d = new Date) {
                           <input style="display: none" class="form-control checkin_date" type='text' value="{{dept}}" name='dept'>
                           <input type='hidden' name='passengers' value="{{passengers}}">
                           
-                            <div class="form-group">
-                                    <div class="select-wrap one-third">
-                                    
-                                    <select name="airline" id="airlineSelect" class="form-control" placeholder="Keyword search">
-                                      <option value="">Airlines:</option>
-                                      <option value="Air India">Air India</option>
-                                      <option value="Vistara">Vistara</option>
-                                      <option value="SpiceJet">SpiceJet</option>
-                                      <option value="Jet Airways">Jet Airways</option>
-                                      <option value="Indigo">Indigo</option>
-                                      
-                                      
-                                      
-                                    </select>
-                                  </div>
-                                  </div>
-
-
+                            
                         
                           <div class="form-group">
                             <div class="select-wrap one-third">
                             
-                            <select name="sort" id="sortSelect" class="form-control">
+                            <select name="sort" id="sortSelectT" class="form-control">
                               <option value="" >Sort By:</option>
                               <option value="price" >Price (Low to High)</option>
                               <option value="-price">Price (High to Low)</option>
@@ -320,7 +319,7 @@ function formattedDate(d = new Date) {
                           <div class="form-group">
                                 <div class="select-wrap one-third">
                                 
-                                <select name="deptTime" id="deptSelect" class="form-control" placeholder="Keyword search">
+                                <select name="deptTime" id="deptSelectT" class="form-control" placeholder="Keyword search">
                                   <option value="">Departure Time:</option>
                                   <option value="0">12AM-6AM</option>
                                   <option value="1">6AM-12PM</option>
@@ -337,7 +336,7 @@ function formattedDate(d = new Date) {
                               <div class="form-group">
                                     <div class="select-wrap one-third">
                                     
-                                    <select name="arrivalTime" id="arrivalSelect" class="form-control" placeholder="Keyword search">
+                                    <select name="arrivalTime" id="arrivalSelectT" class="form-control" placeholder="Keyword search">
                                       <option value="">Arrival Time:</option>
                                       <option value="0">12AM-6AM</option>
                                       <option value="1">6AM-12PM</option>
@@ -351,7 +350,7 @@ function formattedDate(d = new Date) {
                                   <div class="form-group">
                                         <div class="select-wrap one-third">
                                         
-                                        <select name="class" id="classSelect" class="form-control" placeholder="Keyword search">
+                                        <select name="class" id="classSelectT" class="form-control" placeholder="Keyword search">
                                           <option value="">Class</option>
                                           <option value="First Class">First Class</option>
                                           <option value="Business">Business</option>
@@ -382,15 +381,7 @@ function formattedDate(d = new Date) {
 
 
                     <script>
-                        var air = document.getElementById('airlineSelect');
-                        for(var i=0;i<air.options.length;i++){
-                          //alert('{{airline}}')
-                          if(air.options[i].value=='{{airline}}'){
-                            air.options[i].selected = true
-                          }
-                        }
-
-                        air = document.getElementById('sortSelect');
+                        var air = document.getElementById('sortSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{sort}}'){
@@ -398,7 +389,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('deptSelect');
+                        air = document.getElementById('deptSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{deptTime}}'){
@@ -406,7 +397,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('arrivalSelect');
+                        air = document.getElementById('arrivalSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{arrivalTime}}'){
@@ -414,7 +405,7 @@ function formattedDate(d = new Date) {
                           }
                         }
 
-                        air = document.getElementById('classSelect');
+                        air = document.getElementById('classSelectT');
                         for(var i=0;i<air.options.length;i++){
                           //alert('{{sort}}')
                           if(air.options[i].value=='{{class}}'){
@@ -453,20 +444,20 @@ function formattedDate(d = new Date) {
 
                                   
                                   <div class="col-lg-2 text-center">
-                                      <span class="bg-primary">Departure:  </span>
+                                      <span class="bg-primary">&nbsp;Departure: &nbsp; </span>
                                       <br>
                                       <span class="text-primary"> {{flight.deptTime}} {{flight.origin}} </span>
 
                                   </div>
 
                                   <div class="col-lg-2 text-center">
-                                      <span class="bg-dark text-light">Duration: </span>
+                                      <span class="bg-dark text-light">&nbsp;Duration: &nbsp;</span>
                                         <br>
                                         {{flight.duration}} hours
                                   </div>
 
                                   <div class="col-lg-2 text-center">
-                                      <span class="bg-danger text-light">Arrival Time:</span>
+                                      <span class="bg-danger text-light">&nbsp;Arrival Time:&nbsp;</span>
                                         <br>
                                         <span class="text-danger">{{flight.arrivalTime}} {{flight.dest}}</span>
                                   </div>
@@ -534,67 +525,7 @@ function formattedDate(d = new Date) {
   </body>
 </html>
 
-<style>
-.pricing .card {
-  border: none;
-  border-radius: 0.5rem;
-  transition: all 0.2s;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-}
-
-.pricing hr {
-  margin: .5rem 0;
-}
-
-.pricing .card-title {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  letter-spacing: .1rem;
-  font-weight: bold;
-}
-
-.pricing .card-price {
-  font-size: 1.5rem;
-  margin: 0;
-}
-
-.pricing .card-price .period {
-  font-size: 0.8rem;
-}
-
-.pricing ul li {
-  margin-bottom: 1rem;
-}
-
-.pricing .text-muted {
-  opacity: 0.7;
-}
-
-.pricing .btn {
-  font-size: 80%;
-  border-radius: 5rem;
-  letter-spacing: .1rem;
-  font-weight: bold;
-  padding: 1rem;
-  opacity: 0.7;
-  transition: all 0.2s;
-}
-
-/* Hover Effects on Card */
-
-@media (min-width: 992px) {
-  .pricing .card:hover {
-    margin-top: -.25rem;
-    margin-bottom: .25rem;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
-    background: #08c29a;
-  }
-  .pricing .card:hover .btn {
-    opacity: 1;
-  }
-}
-
-.autocomplete {
+<style>.autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
